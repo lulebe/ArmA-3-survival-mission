@@ -1,0 +1,53 @@
+class RscTitles {
+    class WaveInfoDisplayTitle {
+        idd = 11;
+        duration = 1e+1000;
+        onLoad = "uiNamespace setVariable ['infodspl', _this select 0];";
+        onUnload = "uiNamespace setVariable ['infodspl', displayNull];";
+        class controls {
+            class WaveInfoDisplayControl {
+                idc = 101;
+                type = 13;
+                style = 528;
+                x = safezoneX + safezoneW - 0.27;
+                y = safezoneY + safezoneH - 0.23;
+                w = 0.27;
+                h = 0.15;
+                font = "EtelkaNarrowMediumPro";
+                size = 0.04;
+                colorBackground[] = {0,0,0,1};
+                colorText[] = {1,1,1,1};
+                text = "First wave in 180s.";
+                lineSpacing = 1;
+            };
+            class KillInfoDisplayControl {
+                idc = 102;
+                type = 13;
+                style = 0;
+                x = safezoneX + safezoneW - 0.27;
+                y = safezoneY + safezoneH - 0.08;
+                w = 0.27;
+                h = 0.04;
+                font = "EtelkaNarrowMediumPro";
+                size = 0.04;
+                colorBackground[] = {0,0,0,1};
+                colorText[] = {1,1,1,1};
+                text = "";
+            };
+            class MoneyInfoDisplayControl {
+                idc = 103;
+                type = 13;
+                style = 0;
+                x = safezoneX + safezoneW - 0.27;
+                y = safezoneY + safezoneH - 0.04;
+                w = 0.27;
+                h = 0.04;
+                font = "EtelkaNarrowMediumPro";
+                size = 0.04;
+                colorBackground[] = {0,0,0,1};
+                colorText[] = {1,1,1,1};
+                text = "Money: $0";
+            };
+        };
+    };
+};
