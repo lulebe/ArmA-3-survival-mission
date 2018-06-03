@@ -2,6 +2,19 @@ player enableFatigue false;
 
 player addAction ["enter build mode", "construction.sqf", [], 1.5, false, false, "", "!waveRunning"];
 
+displayUnitDamage = {
+	sleep 0.02;
+	_d = damage player;
+	_h = 1.0 - _d;
+	uiNamespace getVariable "infodspl" displayCtrl 104 progressSetPosition _h;
+	uiNamespace getVariable "infodspl" displayCtrl 104 ctrlSetTextColor [
+		_d,
+		_h / 1.5,
+		0,
+		1
+	];
+};
+
 player addEventHandler ["HandleDamage", {
 	_unit = _this select 0;
 	_selection = _this select 1;
@@ -12,22 +25,28 @@ player addEventHandler ["HandleDamage", {
 	} else {
 		_prevDamage = _unit getHit _selection;
 	};
-	_addedDamge = ((_damage - _prevDamage) / 17.0);
+	_addedDamage = ((_damage - _prevDamage) / 25.0);
 	if (_addedDamage < 0.02) then { _addedDamage = 0.02; };
-	if (_addedDamage > 0.04) then { _addedDamage = 0.04; };
-	_newDamage = _prevDamage + _addedDamge;
+	if (_addedDamage > 0.1) then { _addedDamage = 0.1; };
+	if ((_this select 4) isEqualTo "") then {
+		_addedDamage = _addedDamage * 6;
+	};
+	if (lifeState _unit == "INCAPACITATED") then { _addedDamage = 0;};
+	_newDamage = _prevDamage + _addedDamage;
+	[] spawn displayUnitDamage;
 	_newDamage;
 }];
 
 [] spawn {
 	while {true} do {
 		if (damage player > 0) then {
-			_restoredHealth = (damage player - 0.02);
+			_restoredHealth = (damage player - 0.01667);
 			if (_restoredHealth < 0) then {
 				_restoredHealth = 0
 			};
 			player setDamage _restoredHealth;
 		};
+		[] spawn displayUnitDamage;
 		sleep 1;
 	}
 };
@@ -55,8 +74,11 @@ showWaveStart = {
 showWaveEnd = {
 	_pastWave = _this select 0;
 	_nextWave = _pastWave + 1;
-	_time = _this select 1;
+	_time = round (_this select 1);
 	_text = parseText format ["<t color='#ff0000'>Wave %1 finished.</t><br/>Wave %2 starts in %3 seconds.", _pastWave, _nextWave, _time];
+	if (_pastWave == 0) then {
+		_text = parseText format ["First wave in %1s.", _time];
+	};
 	uiNamespace getVariable "infodspl" displayCtrl 101 ctrlSetStructuredText _text;
 };
 
@@ -75,6 +97,7 @@ updateMoney = {
 titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
 
 [] spawn {
+	sleep 30;
 	while {true} do {
 		if (isNull (uiNamespace getVariable "infodspl")) then {
 			titleRsc ["WaveInfoDisplayTitle", "PLAIN"];

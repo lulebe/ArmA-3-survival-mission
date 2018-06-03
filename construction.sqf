@@ -3,14 +3,41 @@ player removeAction _enterActionId;
 
 
 _buildOptions = [
-	["low sandbags", "Land_SandbagBarricade_01_half_F", 100, [0,1,0.65], {}],
-	["high sandbags", "Land_SandbagBarricade_01_F", 200, [0,1,1.3], {}],
-	["Bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}],
+	["low sandbags", "Land_SandbagBarricade_01_half_F", 90, [0,1,0.55], {}, {true}, ""],
+	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, ""],
+	["concrete shelter", "Land_CnCShelter_F", 250, [0,1,1], {}, {true}, ""],
+	["concrete roof", "Land_Wall_IndCnc_4_F", 450, [0,0,2.07], {
+		_this setVectorDirAndUp [[0,0,-1], [1,0,0]];
+	}, {true}, ""],
+	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, ""],
 	["static MG", "B_HMG_01_high_F", 500, [0,1,1.7], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
-	}],
-	["repair building", "", 1000, [0,0,0], {(nearestBuilding player) setDamage 0}]
+	}, {true}, ""],
+	["static AT", "B_static_AT_F", 750, [0,1,1], {
+		_this enableWeaponDisassembly false;
+		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
+	}, {true}, ""],
+	["build/rearm automatic AA", "", 900, [0,0,0], {
+		if (count staticAAPlaced > 0) then {
+			{ deleteVehicle _x } forEach (staticAAPlaced select 1);
+			deleteVehicle (staticAAPlaced select 0);
+		};
+		_vData = [markerPos "auto_aa", markerDir "auto_aa", "B_SAM_System_01_F", west] call BIS_fnc_spawnVehicle;
+		staticAAPlaced = _vData;
+		(_vData select 0) setCaptive true;
+		(_vData select 0) setVehicleAmmo 0.3;
+		publicVariable "staticAA";
+	}, {true}, "AA is already installed."],
+	["repair building", "", 1000, [0,0,0], {
+		_inclBuilding = nearestBuilding player;
+		_placedBuilding = nearestObjects [player, ["House", "Building"], 100] select 0;
+		_building = _inclBuilding;
+		if (_placedBuilding distance2d player < _inclBuilding distance2d player) then {
+			_building = _placedBuilding;
+		};
+		_building setDamage 0;
+	}, {true}, ""]
 ];
 buildActionIds = [];
 constructionConfirmAction = 0;
@@ -62,22 +89,28 @@ _buildObject = {
 	_class = _infoBuildObject select 1;
 	_offset = _infoBuildObject select 3;
 	_initScript = _infoBuildObject select 4;
+	_condition = _infoBuildObject select 5;
+	_conditionErrorMsg = _infoBuildObject select 6;
 	if (money >= _price) then {
-		money = money - _price;
-		publicVariable "money";
-		[money] remoteExecCall ["updateMoney"];
-		if (count _class == 0) then {
-			[] call _initScript;
+		if ([] call _condition) then {
+			money = money - _price;
+			publicVariable "money";
+			[money] remoteExecCall ["updateMoney"];
+			if (count _class == 0) then {
+				[] call _initScript;
+			} else {
+				player setVariable ["constructionOngoing", true];
+				_object = _class createVehicle position player;
+				_object attachTo [player, _offset];
+				constructionObject = _object;
+				_object setVariable ["unconfirmed", true];
+				constructionCancelAction = player addAction ["<t color='#ff0000'>cancel build</t>", cancelBuild, [_price], 9];
+				constructionConfirmAction = player addAction ["<t color='#00ff00'>confirm build</t>", confirmBuild, [], 10];
+				_object call _initScript;
+				[_object, _price] spawn autoCancelBuild;
+			};
 		} else {
-			player setVariable ["constructionOngoing", true];
-			_object = _class createVehicle position player;
-			_object attachTo [player, _offset];
-			constructionObject = _object;
-			_object setVariable ["unconfirmed", true];
-			constructionCancelAction = player addAction ["<t color='#ff0000'>cancel build</t>", cancelBuild, [_price], 9];
-			constructionConfirmAction = player addAction ["<t color='#00ff00'>confirm build</t>", confirmBuild, [], 10];
-			_object call _initScript;
-			[_object, _price] spawn autoCancelBuild;
+			hint _conditionErrorMsg;
 		};
 	} else {
 		hint "Not enough money.";

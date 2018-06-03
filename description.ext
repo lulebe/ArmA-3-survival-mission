@@ -1,3 +1,13 @@
+class CfgFunctions {
+    class LLB {
+        class General {
+            class loadFromSave {
+                file = "loadFromSave.sqf";
+                preInit = 1;
+            };
+        };
+    };
+};
 class RscTitles {
     class WaveInfoDisplayTitle {
         idd = 11;
@@ -47,6 +57,32 @@ class RscTitles {
                 colorBackground[] = {0,0,0,1};
                 colorText[] = {1,1,1,1};
                 text = "Money: $0";
+            };
+            class HealthInfoDisplayControl {
+                idc = 104;
+                type = 8;
+                style = 0;
+                colorFrame[] = {0,0,0,1};
+                colorBar[] = {1,0.5,0.5,1};
+                texture = "#(argb,8,8,3)color(1,1,1,1)";
+                x = safezoneX + (safezoneW / 2.0) - 0.25;
+                y = safezoneY + safezoneH - 0.03;
+                w = 0.5;
+                h = 0.03;
+            };
+            class HealthInfoTextDisplayControl {
+                idc = 105;
+                type = 0;
+                style = 2;
+                x = safezoneX + (safezoneW / 2.0) - 0.25;
+                y = safezoneY + safezoneH - 0.093;
+                w = 0.5;
+                h = 0.1;
+                font = "EtelkaNarrowMediumPro";
+                sizeEx = 0.04;
+                colorBackground[] = {0,0,0,0};
+                colorText[] = {1,1,1,1};
+                text = "Health";
             };
         };
     };

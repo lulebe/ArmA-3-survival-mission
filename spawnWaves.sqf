@@ -1,12 +1,10 @@
 _helicopterHeight = 30;
-_waveDelay = 30;
+_waveRewardFactor = 30;
 
 _normalUnits = ["O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Solder_AR_F", "O_Soldier_GL_F", "O_Soldier_M_F", "O_HeavyGunner_F"];
-_normalHelicopters = ["B_Heli_Light_01_dynamicLoadout_F", "O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"];
+_normalHelicopters = ["O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"];
 _normalVehicles = ["O_LSV_02_Armed_F", "O_MRAP_02_hmg_F", "O_G_Offroad_01_armed_F"];
 
-vehicleWaves = 3;
-helicopterWaves = 5;
 
 _spawnsUnits = [
 	"spawn_units_1",
@@ -17,8 +15,6 @@ _spawnsUnits = [
 _spawnHelicopter = [markerPos "spawn_helicopter" select 0, markerPos "spawn_helicopter" select 1];
 _spawnVehicle = markerPos "spawn_vehicle";
 
-publicVariable "vehicleWaves";
-publicVariable "helicopterWaves";
 
 _setupGroup = {
 	_group = _this select 0;
@@ -31,9 +27,11 @@ _setupGroup = {
 };
 
 onKill = {
-	livingUnits = livingUnits - 1;
-	[livingUnits] remoteExecCall ["showKill"];
-	money = money + 10;
+	if ((_this select 0) == killRewardUnit) then {
+		livingUnits = livingUnits - 1;
+		[livingUnits] remoteExecCall ["showKill"];
+	};
+	money = money + (_this select 0);
 	publicVariable "money";
 	[money] remoteExecCall ["updateMoney"];
 };
@@ -51,7 +49,7 @@ _spawnUnitsAsGroup = {
 			_unit addEventHandler ["killed", {
 				_u = _this select 0;
 				_u removeAllEventHandlers "killed";
-				[] call onKill;
+				[killRewardUnit] call onKill;
 			}];
 		};
 	};
@@ -73,13 +71,18 @@ _spawnUnitsAsGroup = {
 _spawnVehicleWithCrew = {
 	_vData = [_spawnVehicle, 0, selectRandom _normalVehicles, east] call BIS_fnc_spawnVehicle;
 	_vData select 0 setDir 180;
+	(_vData select 0) addEventHandler ["killed", {
+		_u = _this select 0;
+		_u removeAllEventHandlers "killed";
+		[killRewardVehicle] call onKill;
+	}];
 	{
 		livingUnits = livingUnits + 1;
 		unitsOfCurrentWave pushBack _x;
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[] call onKill;
+			[killRewardUnit] call onKill;
 		}];
 	} forEach (_vData select 1);
 	_group = _vData select 2;
@@ -92,26 +95,38 @@ _spawnHelicopterWithCrew = {
 	_heli engineOn true;
 	_heli flyInHeight _helicopterHeight;
 	_heli setPos [getPos _heli select 0, getPos _heli select 1, _helicopterHeight];
+	(_vData select 0) addEventHandler ["killed", {
+		_u = _this select 0;
+		_u removeAllEventHandlers "killed";
+		[killRewardHelicopter] call onKill;
+	}];
 	{
 		livingUnits = livingUnits + 1;
 		unitsOfCurrentWave pushBack _x;
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[] call onKill;
+			[killRewardUnit] call onKill;
 		}];
 	} forEach (_vData select 1);
 	_group = _vData select 2;
+	{ _group reveal [_x, 2] } forEach allPlayers;
 	[_group] call _setupGroup;
 	_wp2 = _group addWaypoint [markerPos "target", 5];
-	_wp2 setWaypointType "LOITER";
+	_wp2 setWaypointType "SAD";
 	_wp2 setWaypointSpeed "NORMAL";
-	_wp2 setWaypointLoiterRadius 100;
+	_wp2 setWaypointCompletionRadius 50;
 };
 
 _spawnNextWave = {
+	{
+		_x removeAllEventHandlers "killed";
+		_x setDamage 1;
+	} forEach unitsOfCurrentWave;
+	unitsOfCurrentWave = [];
 	startNextWaveNow = false;
 	livingUnits = 0;
+	noWaveReward = false;
 	waveRunning = true;
 	publicVariable "waveRunning";
 
@@ -130,19 +145,35 @@ _spawnNextWave = {
 		[] call _spawnHelicopterWithCrew;
 	};
 	[currentWave, livingUnits, vehicleWaves, helicopterWaves] remoteExecCall ["showWaveStart"];
+	_waveStartTime = time;
 	waitUntil { livingUnits <= 0; };
 	waveRunning = false;
 	publicVariable "waveRunning";
-	[currentWave, _waveDelay] remoteExecCall ["showWaveEnd"];
-	unitsOfCurrentWave = [];
+	waveEndTime = time;
+	if (!noWaveReward) then {
+		_waveReward = (currentWave * _waveRewardFactor) - round (waveEndTime - _waveStartTime);
+		if (_waveReward < 0) then {
+			_waveReward = 0
+		};
+		money = money + _waveReward;
+		publicVariable "money";
+		[money] remoteExecCall ["updateMoney"];
+	};
 	[+allDead] spawn {
 		sleep 60;
 		{
 			deleteVehicle _x;
 		} forEach (_this select 0);
 	};
-	_nextWaveAt = time + _waveDelay;
-	waitUntil {time >= _nextWaveAt || startNextWaveNow};
+	nextWaveAt = time + waveDelay + (currentWave * addedWaveDelay);
+	_waveEndDisplay = [] spawn {
+		while {true} do {
+			[currentWave, nextWaveAt - time] remoteExecCall ["showWaveEnd"];
+			sleep 1;
+		};
+	};
+	waitUntil {time >= nextWaveAt || startNextWaveNow};
+	terminate _waveEndDisplay;
 };
 
 while {true} do {
