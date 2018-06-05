@@ -1,9 +1,10 @@
 _helicopterHeight = 30;
-_waveRewardFactor = 30;
+_waveUnitRewardFactor = 15;
 
 _normalUnits = ["O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Solder_AR_F", "O_Soldier_GL_F", "O_Soldier_M_F", "O_HeavyGunner_F"];
 _normalHelicopters = ["O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"];
 _normalVehicles = ["O_LSV_02_Armed_F", "O_MRAP_02_hmg_F", "O_G_Offroad_01_armed_F"];
+_heavyVehicles = ["O_MBT_02_cannon_F", "O_APC_tracked_02_cannon_F", "O_APC_wheeled_02_rcws_v2_F"];
 
 
 _spawnsUnits = [
@@ -13,7 +14,8 @@ _spawnsUnits = [
 	"spawn_units_4"
 ];
 _spawnHelicopter = [markerPos "spawn_helicopter" select 0, markerPos "spawn_helicopter" select 1];
-_spawnVehicle = markerPos "spawn_vehicle";
+_spawnVehicle1 = markerPos "spawn_vehicle_1";
+_spawnVehicle2 = markerPos "spawn_vehicle_2";
 
 
 _setupGroup = {
@@ -69,7 +71,12 @@ _spawnUnitsAsGroup = {
 };
 
 _spawnVehicleWithCrew = {
-	_vData = [_spawnVehicle, 0, selectRandom _normalVehicles, east] call BIS_fnc_spawnVehicle;
+	_vehiclesList = _normalVehicles;
+	_vehTypeRanMid = currentWave+heavyVehiclesStartWave max 65;
+	if (currentWave >= heavyVehiclesStartWave && (random [heavyVehiclesStartWave,_vehTypeRanMid,80]) > 40) then {
+		_vehiclesList = _heavyVehicles;
+	};
+	_vData = [_this select 0, 0, selectRandom _vehiclesList, east] call BIS_fnc_spawnVehicle;
 	_vData select 0 setDir 180;
 	(_vData select 0) addEventHandler ["killed", {
 		_u = _this select 0;
@@ -119,6 +126,7 @@ _spawnHelicopterWithCrew = {
 };
 
 _spawnNextWave = {
+	hint str (playersNumber west);
 	{
 		_x removeAllEventHandlers "killed";
 		_x setDamage 1;
@@ -130,7 +138,7 @@ _spawnNextWave = {
 	waveRunning = true;
 	publicVariable "waveRunning";
 
-	_totalUnits = currentWave * 2;
+	_totalUnits = floor (currentWave * 2 * (0.6 + ((playersNumber west) * 0.4)));
 	_groups = ceil (currentWave / 7);
 	_unitsPerGroup = floor (_totalUnits / _groups);
 	for "_x" from 1 to _groups do {
@@ -138,20 +146,24 @@ _spawnNextWave = {
 	};
 
 	if ((currentWave mod vehicleWaves) == 0) then {
-		[] call _spawnVehicleWithCrew;
+		[_spawnVehicle1] call _spawnVehicleWithCrew;
+		if (currentWave >= moreVehiclesStartWave) then {
+			[_spawnVehicle2] call _spawnVehicleWithCrew;
+		};
 	};
 
 	if ((currentWave mod helicopterWaves) == 0) then {
 		[] call _spawnHelicopterWithCrew;
 	};
 	[currentWave, livingUnits, vehicleWaves, helicopterWaves] remoteExecCall ["showWaveStart"];
+	_waveRewardMax = livingUnits * _waveUnitRewardFactor;
 	_waveStartTime = time;
 	waitUntil { livingUnits <= 0; };
 	waveRunning = false;
 	publicVariable "waveRunning";
 	waveEndTime = time;
 	if (!noWaveReward) then {
-		_waveReward = (currentWave * _waveRewardFactor) - round (waveEndTime - _waveStartTime);
+		_waveReward = _waveRewardMax - round (waveEndTime - _waveStartTime);
 		if (_waveReward < 0) then {
 			_waveReward = 0
 		};

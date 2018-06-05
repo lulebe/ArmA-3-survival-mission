@@ -18,6 +18,8 @@ if (!loadedFromSave) then {
 	addedWaveDelay = 5;
 	vehicleWaves = 3;
 	helicopterWaves = 5;
+	heavyVehiclesStartWave = 10;
+	moreVehiclesStartWave = 16;
 };
 
 

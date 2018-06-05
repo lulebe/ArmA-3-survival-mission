@@ -1,4 +1,7 @@
+#include "SRS\GUI\SRSdialogs.hpp"
+
 class CfgFunctions {
+    #include "SRS\CfgFunctions.hpp"
     class LLB {
         class General {
             class loadFromSave {
@@ -8,7 +11,9 @@ class CfgFunctions {
         };
     };
 };
+
 class RscTitles {
+    #include "SRS\GUI\SRSprogressBar.hpp"
     class WaveInfoDisplayTitle {
         idd = 11;
         duration = 1e+1000;

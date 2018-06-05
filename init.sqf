@@ -1,0 +1,1 @@
+[] spawn SRS_fnc_init;

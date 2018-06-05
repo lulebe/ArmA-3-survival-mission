@@ -15,28 +15,6 @@ displayUnitDamage = {
 	];
 };
 
-player addEventHandler ["HandleDamage", {
-	_unit = _this select 0;
-	_selection = _this select 1;
-	_damage = _this select 2;
-	_prevDamage = 0;
-	if (_selection isEqualTo "") then {
-		_prevDamage = damage _unit;
-	} else {
-		_prevDamage = _unit getHit _selection;
-	};
-	_addedDamage = ((_damage - _prevDamage) / 25.0);
-	if (_addedDamage < 0.02) then { _addedDamage = 0.02; };
-	if (_addedDamage > 0.1) then { _addedDamage = 0.1; };
-	if ((_this select 4) isEqualTo "") then {
-		_addedDamage = _addedDamage * 6;
-	};
-	if (lifeState _unit == "INCAPACITATED") then { _addedDamage = 0;};
-	_newDamage = _prevDamage + _addedDamage;
-	[] spawn displayUnitDamage;
-	_newDamage;
-}];
-
 [] spawn {
 	while {true} do {
 		if (damage player > 0) then {

@@ -10,11 +10,11 @@ _buildOptions = [
 		_this setVectorDirAndUp [[0,0,-1], [1,0,0]];
 	}, {true}, ""],
 	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, ""],
-	["static MG", "B_HMG_01_high_F", 500, [0,1,1.7], {
+	["static MG", "B_HMG_01_high_F", 400, [0,1,1.7], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
 	}, {true}, ""],
-	["static AT", "B_static_AT_F", 750, [0,1,1], {
+	["static AT", "B_static_AT_F", 500, [0,1,1], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
 	}, {true}, ""],
@@ -29,6 +29,14 @@ _buildOptions = [
 		(_vData select 0) setVehicleAmmo 0.3;
 		publicVariable "staticAA";
 	}, {true}, "AA is already installed."],
+	["Ammobox", "B_SupplyCrate_F", 1200, [0,1,0.5], {
+		0 = ["AmmoboxInit",[_this, true, {true}]] spawn BIS_fnc_arsenal;
+		_this allowDamage false;
+	}, {true}, ""],
+	["recruit soldier", "", 1000, [0,1,0], {
+		_s = (group player) createUnit ["B_Soldier_F", position player, [], 0, "NONE"];
+		_s execVM "recruitedSoldier.sqf";
+	}, {true}, ""],
 	["repair building", "", 1000, [0,0,0], {
 		_inclBuilding = nearestBuilding player;
 		_placedBuilding = nearestObjects [player, ["House", "Building"], 100] select 0;
