@@ -5,18 +5,34 @@ player removeAction _enterActionId;
 _buildOptions = [
 	["low sandbags", "Land_SandbagBarricade_01_half_F", 90, [0,1,0.55], {}, {true}, ""],
 	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, ""],
-	["concrete shelter", "Land_CnCShelter_F", 250, [0,1,1], {}, {true}, ""],
+	["concrete shelter", "Land_CnCShelter_F", 180, [0,1,1], {}, {true}, ""],
 	["concrete roof", "Land_Wall_IndCnc_4_F", 450, [0,0,2.07], {
 		_this setVectorDirAndUp [[0,0,-1], [1,0,0]];
 	}, {true}, ""],
 	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, ""],
-	["static MG", "B_HMG_01_high_F", 400, [0,1,1.7], {
+	["static MG (3 rounds)", "B_HMG_01_high_F", 400, [0,1,1.7], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
+		_this allowDamage false;
+		_this setVariable ["builtInWave", currentWave];
+		_this spawn {
+			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
+				deleteVehicle _this;
+				sleep 5;
+			};
+		};
 	}, {true}, ""],
-	["static AT", "B_static_AT_F", 500, [0,1,1], {
+	["static AT (7 rounds)", "B_static_AT_F", 700, [0,1,1], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
+		_this allowDamage false;
+		_this setVariable ["builtInWave", currentWave];
+		_this spawn {
+			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
+				deleteVehicle _this;
+				sleep 5;
+			};
+		};
 	}, {true}, ""],
 	["build/rearm automatic AA", "", 900, [0,0,0], {
 		if (count staticAAPlaced > 0) then {
@@ -50,6 +66,8 @@ _buildOptions = [
 buildActionIds = [];
 constructionConfirmAction = 0;
 constructionCancelAction = 0;
+constructionMoveUpAction = 0;
+constructionMoveDownAction = 0;
 constructionObject = objNull;
 
 
@@ -66,6 +84,8 @@ confirmBuild = {
 	player setVariable ["constructionOngoing", false];
 	player removeAction constructionConfirmAction;
 	player removeAction constructionCancelAction;
+	player removeAction constructionMoveUpAction;
+	player removeAction constructionMoveDownAction;
 };
 cancelBuild = {
 	money = money + ((_this select 3) select 0);
@@ -76,6 +96,22 @@ cancelBuild = {
 	player setVariable ["constructionOngoing", false];
 	player removeAction constructionConfirmAction;
 	player removeAction constructionCancelAction;
+	player removeAction constructionMoveUpAction;
+	player removeAction constructionMoveDownAction;
+};
+moveBuildUp = {
+	constructionObject setVariable ["translationVertical", (constructionObject getVariable ["translationVertical", 0]) + 0.1];
+	_offset = constructionObject getVariable "defaultOffset";
+	_offsetVertical = (_offset select 2) + (constructionObject getVariable ["translationVertical", 0]);
+	detach constructionObject;
+	constructionObject attachTo [player, [_offset select 0, _offset select 1, _offsetVertical]];
+};
+moveBuildDown = {
+	constructionObject setVariable ["translationVertical", (constructionObject getVariable ["translationVertical", 0]) - 0.1];
+	_offset = constructionObject getVariable "defaultOffset";
+	_offsetVertical = (_offset select 2) + (constructionObject getVariable ["translationVertical", 0]);
+	detach constructionObject;
+	constructionObject attachTo [player, [_offset select 0, _offset select 1, _offsetVertical]];
 };
 autoCancelBuild = {
 	waitUntil { waveRunning; };
@@ -87,6 +123,8 @@ autoCancelBuild = {
 		player setVariable ["constructionOngoing", false];
 		player removeAction constructionConfirmAction;
 		player removeAction constructionCancelAction;
+		player removeAction constructionMoveUpAction;
+		player removeAction constructionMoveDownAction;
 	};
 };
 
@@ -111,9 +149,12 @@ _buildObject = {
 				_object = _class createVehicle position player;
 				_object attachTo [player, _offset];
 				constructionObject = _object;
+				constructionObject setVariable ["defaultOffset", _offset];
 				_object setVariable ["unconfirmed", true];
 				constructionCancelAction = player addAction ["<t color='#ff0000'>cancel build</t>", cancelBuild, [_price], 9];
 				constructionConfirmAction = player addAction ["<t color='#00ff00'>confirm build</t>", confirmBuild, [], 10];
+				constructionMoveUpAction = player addAction ["<t color='#00ffff'>move up (10cm)</t>", moveBuildUp, [], 8];
+				constructionMoveUpAction = player addAction ["<t color='#00ffff'>move down (10cm)</t>", moveBuildDown, [], 7];
 				_object call _initScript;
 				[_object, _price] spawn autoCancelBuild;
 			};

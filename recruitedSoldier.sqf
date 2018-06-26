@@ -4,7 +4,7 @@ _soldier disableAi "COVER";
 
 _soldier allowFleeing 0;
 
-_soldier setSkill 0.7;
+_soldier setSkill 0.9;
 
 _soldier setUnitPos "UP";
 
@@ -18,7 +18,7 @@ _soldier addEventHandler ["HandleDamage", {
 	} else {
 		_prevDamage = _unit getHit _selection;
 	};
-	_addedDamage = ((_damage - _prevDamage) / 15.0);
+	_addedDamage = ((_damage - _prevDamage) / 20.0);
 	if (_addedDamage < 0.05) then { _addedDamage = 0.05; };
 	if (_addedDamage > 0.15) then { _addedDamage = 0.15; };
 	_newDamage = _prevDamage + _addedDamage;
@@ -30,7 +30,7 @@ _soldier addEventHandler ["fired", {(_this select 0) setVehicleAmmo 1;}];
 _soldier spawn {
 	while {alive _this} do {
 		if (damage _this > 0) then {
-			_restoredHealth = (damage _this - 0.01);
+			_restoredHealth = (damage _this - 0.02);
 			if (_restoredHealth < 0) then {
 				_restoredHealth = 0
 			};
