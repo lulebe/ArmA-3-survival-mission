@@ -173,8 +173,8 @@ _buildObject = {
 				constructionCancelAction = player addAction ["<t color='#ff0000'>cancel build</t>", cancelBuild, [_price], 9];
 				constructionConfirmAction = player addAction ["<t color='#00ff00'>confirm build</t>", confirmBuild, [], 10];
 				if (_canMoveUpAndDown) then {
-					constructionMoveUpAction = player addAction ["<t color='#00ffff'>move up (10cm)</t>", moveBuildUp, [], 8];
-					constructionMoveUpAction = player addAction ["<t color='#00ffff'>move down (10cm)</t>", moveBuildDown, [], 7];
+					constructionMoveUpAction = player addAction ["<t color='#00ffff'>move up (10cm)</t>", moveBuildUp, [], 8, false, false];
+					constructionMoveDownAction = player addAction ["<t color='#00ffff'>move down (10cm)</t>", moveBuildDown, [], 7, false, false];
 				};
 				_object call _initScript;
 				[_object, _price] spawn autoCancelBuild;
@@ -196,7 +196,7 @@ _buildObject = {
 		format [_text, _x select 0, _x select 2],
 		_buildObject,
 		[_x],
-		1,
+		2,
 		false,
 		false,
 		"",
@@ -209,7 +209,7 @@ leaveConstructionActionId = player addAction [
 	"leave build mode",
 	{(_this select 2) call leaveConstructionMode;},
 	[],
-	1.5,
+	3,
 	false,
 	false,
 	"",

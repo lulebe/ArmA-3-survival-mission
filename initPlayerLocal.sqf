@@ -18,7 +18,7 @@ displayUnitDamage = {
 [] spawn {
 	while {true} do {
 		if (damage player > 0) then {
-			_restoredHealth = (damage player - 0.01667);
+			_restoredHealth = (damage player - 0.02);
 			if (_restoredHealth < 0) then {
 				_restoredHealth = 0
 			};

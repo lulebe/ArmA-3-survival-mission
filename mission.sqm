@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=336;
+		nextID=340;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={6817.1533,222.94374,8862.542};
-		dir[]={-0.98296589,-0.097500198,-0.15661483};
-		up[]={-0.0965579,0.99517459,-0.015385908};
-		aside[]={-0.15735668,2.9153307e-007,0.98763657};
+		pos[]={6727.4565,117.05817,8775.2051};
+		dir[]={-0.29905969,-0.20553984,-0.9319768};
+		up[]={-0.062878348,0.97856534,-0.19595383};
+		aside[]={-0.95227218,5.3434633e-007,0.3055751};
 	};
 };
 binarizationWanted=0;
@@ -275,7 +275,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=125;
+		items=126;
 		class Item0
 		{
 			dataType="Group";
@@ -299,6 +299,10 @@ class Mission
 						isPlayer=1;
 						class Inventory
 						{
+							class binocular
+							{
+								name="Rangefinder";
+							};
 							class uniform
 							{
 								typeName="U_B_CombatUniform_mcam";
@@ -2440,7 +2444,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6609.4819,109.92913,8807.6436};
+				position[]={6609.4668,109.92914,8807.7471};
 				angles[]={-0,6.1690998,6.2826972};
 			};
 			side="Empty";
@@ -2497,66 +2501,6 @@ class Mission
 		};
 		class Item116
 		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={6609.7788,109.73618,8806.1709};
-				angles[]={0,4.5744729,6.2826972};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this; ";
-				name="weaponBox";
-			};
-			id=317;
-			type="Box_NATO_Wps_F";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""launch_NLAW_F"",""arifle_MX_F"",""arifle_MX_SW_F""],[1,2,1]],[[""30Rnd_65x39_caseless_mag"",""16Rnd_9x21_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""20Rnd_762x51_Mag"",""100Rnd_65x39_caseless_mag"",""1Rnd_HE_Grenade_shell"",""3Rnd_HE_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""Chemlight_green"",""NLAW_F"",""Laserbatteries"",""HandGrenade"",""MiniGrenade"",""SmokeShell"",""SmokeShellGreen"",""UGL_FlareWhite_F"",""UGL_FlareGreen_F""],[24,6,6,6,6,3,1,2,2,6,3,2,6,6,2,2,2,2]],[[""Laserdesignator"",""FirstAidKit"",""acc_flashlight"",""bipod_01_F_blk""],[1,10,2,1]],[[""B_Kitbag_mcamo""],[2]]],false]";
-						};
-					};
-				};
-				class Attribute1
-				{
-					property="allowDamage";
-					expression="_this allowdamage _value;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				nAttributes=2;
-			};
-		};
-		class Item117
-		{
 			dataType="Group";
 			side="West";
 			class Entities
@@ -2578,6 +2522,10 @@ class Mission
 						isPlayable=1;
 						class Inventory
 						{
+							class binocular
+							{
+								name="Rangefinder";
+							};
 							class uniform
 							{
 								typeName="U_B_CombatUniform_mcam";
@@ -2654,7 +2602,7 @@ class Mission
 			id=320;
 			atlOffset=0.00016021729;
 		};
-		class Item118
+		class Item117
 		{
 			dataType="Group";
 			side="West";
@@ -2677,6 +2625,10 @@ class Mission
 						isPlayable=1;
 						class Inventory
 						{
+							class binocular
+							{
+								name="Rangefinder";
+							};
 							class uniform
 							{
 								typeName="U_B_CombatUniform_mcam";
@@ -2753,7 +2705,7 @@ class Mission
 			id=322;
 			atlOffset=3.8146973e-005;
 		};
-		class Item119
+		class Item118
 		{
 			dataType="Group";
 			side="West";
@@ -2776,6 +2728,10 @@ class Mission
 						isPlayable=1;
 						class Inventory
 						{
+							class binocular
+							{
+								name="Rangefinder";
+							};
 							class uniform
 							{
 								typeName="U_B_CombatUniform_mcam";
@@ -2852,7 +2808,7 @@ class Mission
 			id=324;
 			atlOffset=0.00030517578;
 		};
-		class Item120
+		class Item119
 		{
 			dataType="Marker";
 			position[]={6673.4629,108.626,8830.9629};
@@ -2864,7 +2820,7 @@ class Mission
 			id=331;
 			atlOffset=-0.01259613;
 		};
-		class Item121
+		class Item120
 		{
 			dataType="Marker";
 			position[]={6676.1157,182.45215,7918.6582};
@@ -2873,7 +2829,7 @@ class Mission
 			id=332;
 			atlOffset=-1.7391205;
 		};
-		class Item122
+		class Item121
 		{
 			dataType="Marker";
 			position[]={6643.3359,119.21484,10131.369};
@@ -2882,21 +2838,36 @@ class Mission
 			id=333;
 			atlOffset=-5.3371964;
 		};
+		class Item122
+		{
+			dataType="Trigger";
+			position[]={6622.4058,108.98,8792.7578};
+			angle=2.9373884;
+			class Attributes
+			{
+				name="targetarea";
+				sizeA=80;
+				sizeB=70;
+				isRectangle=1;
+			};
+			id=335;
+			type="EmptyDetectorAreaR250";
+		};
 		class Item123
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6610.0771,110.43943,8804.6055};
-				angles[]={0,1.422583,0};
+				position[]={6609.7788,110.43943,8806.1709};
+				angles[]={0,4.5744729,6.2826962};
 			};
 			side="Empty";
 			class Attributes
 			{
 				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this; ";
-				name="ammoBox";
+				name="weaponBox";
 			};
-			id=334;
+			id=336;
 			type="B_supplyCrate_F";
 			atlOffset=0.56700134;
 			class CustomAttributes
@@ -2944,17 +2915,104 @@ class Mission
 		};
 		class Item124
 		{
-			dataType="Trigger";
-			position[]={6622.4063,108.98,8792.7578};
-			angle=2.9373884;
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6610.0776,110.43943,8804.6055};
+				angles[]={0,1.422583,0};
+			};
+			side="Empty";
 			class Attributes
 			{
-				sizeA=80;
-				sizeB=70;
-				isRectangle=1;
+				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this;";
+				name="ammoBox";
 			};
-			id=335;
-			type="EmptyDetectorAreaR250";
+			id=338;
+			type="B_supplyCrate_F";
+			atlOffset=0.56700134;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""launch_NLAW_F"",""arifle_MX_F"",""arifle_MX_SW_F""],[1,2,1]],[[""30Rnd_65x39_caseless_mag"",""16Rnd_9x21_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""20Rnd_762x51_Mag"",""100Rnd_65x39_caseless_mag"",""1Rnd_HE_Grenade_shell"",""3Rnd_HE_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""Chemlight_green"",""NLAW_F"",""Laserbatteries"",""HandGrenade"",""MiniGrenade"",""SmokeShell"",""SmokeShellGreen"",""UGL_FlareWhite_F"",""UGL_FlareGreen_F""],[24,6,6,6,6,3,1,2,2,6,3,2,6,6,2,2,2,2]],[[""Laserdesignator"",""FirstAidKit"",""acc_flashlight"",""bipod_01_F_blk""],[1,10,2,1]],[[""B_Kitbag_mcamo""],[2]]],false]";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
+		};
+		class Item125
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6721.6699,112.65464,8766.5586};
+				angles[]={0.27523842,0,0.016004669};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				init="0 = [""AmmoboxInit"",[this,true]] spawn BIS_fnc_arsenal;";
+			};
+			id=339;
+			type="Box_NATO_WpsSpecial_F";
+			atlOffset=-7.6293945e-006;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 	};
 };

@@ -4,6 +4,7 @@ _playerCount = count allPlayers;
 
 clearMagazineCargoGlobal ammoBox;
 clearItemCargoGlobal ammoBox;
+clearWeaponCargo ammoBox;
 
 //add ammo
 _ammo = [
@@ -29,7 +30,6 @@ _ammo = [
 } forEach _ammo;
 
 //add unlockable items
-ammoBox addItemCargoGlobal ["Rangefinder", _playerCount];
 if (_wave >= 10) then { //uav terminals
 	ammoBox addItemCargoGlobal ["B_UavTerminal", _playerCount];
 };
