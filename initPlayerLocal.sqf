@@ -73,7 +73,6 @@ updateMoney = {
 };
 
 titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
-
 [] spawn {
 	sleep 30;
 	while {true} do {
@@ -84,4 +83,12 @@ titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
 		};
 		sleep 0.1;
 	}
+};
+
+weaponUnlockedInfo = {
+	_classname = _this select 0;
+	_imgPath = getText (configFile >> "CfgWeapons" >> _classname >> "picture");
+	_name = getText (configFile >> "CfgWeapons" >> _classname >> "displayName");
+	cutRsc ["WeaponUnlockInfoDisplayTitle", "PLAIN"];
+	uiNamespace getVariable "weaponunlockinfodspl" displayCtrl 201 ctrlSetStructuredText parseText ("<t align='center' color='#000000'>Unlocked " + _name + "</t><br/><img align='center' image='" + _imgPath + "' size='5' />");
 };

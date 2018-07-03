@@ -14,6 +14,29 @@ class CfgFunctions {
 
 class RscTitles {
     #include "SRS\GUI\SRSprogressBar.hpp"
+    class WeaponUnlockInfoDisplayTitle {
+        idd = 21;
+        duration = 5;
+        onLoad = "uiNamespace setVariable ['weaponunlockinfodspl', _this select 0];";
+        onUnload = "uiNamespace setVariable ['weaponunlockinfodspl', displayNull];";
+        class controls {
+            class WeaponUnlockInfoDisplayControl {
+                idc = 201;
+                type = 13;
+                style = 2096;
+                x = safezoneX + (safezoneW/2.0) - 0.2;
+                y = safezoneY + 0.2;
+                w = 0.4;
+                h = 0.2;
+                font = "EtelkaNarrowMediumPro";
+                size = 0.04;
+                colorBackground[] = {1,1,1,0.8};
+                colorText[] = {0,0,0,1};
+                text = "";
+                lineSpacing = 1;
+            };
+        };
+    };
     class WaveInfoDisplayTitle {
         idd = 11;
         duration = 1e+1000;
