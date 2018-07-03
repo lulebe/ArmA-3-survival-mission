@@ -26,6 +26,7 @@ _setupGroup = {
 	_wp = _group addWaypoint [markerPos "target", 0];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointSpeed "FULL";
+	{_group reveal [_x, 3]} forEach allPlayers;
 };
 
 onKill = {
@@ -45,7 +46,7 @@ _spawnUnitsAsGroup = {
 	for "_x" from 1 to _unitCount do {
 		_unit = _group createUnit [selectRandom _normalUnits, _position, [], 3, "FORM"];
 		if (!(isNull _unit)) then {
-			_unit setSkill 0.5;
+			_unit setSkill 0.9;
 			livingUnits = livingUnits + 1;
 			unitsOfCurrentWave pushBack _unit;
 			_unit addEventHandler ["killed", {
@@ -71,9 +72,10 @@ _spawnUnitsAsGroup = {
 };
 
 _spawnVehicleWithCrew = {
+	_vehNum = _this select 1;
 	_vehiclesList = _normalVehicles;
 	_vehTypeRanMid = currentWave+heavyVehiclesStartWave max 65;
-	if (currentWave >= heavyVehiclesStartWave && (random [heavyVehiclesStartWave,_vehTypeRanMid,80]) > 40) then {
+	if (currentWave <= (_heavyVehiclesStartWave + (_vehNum * moreHeavyVehiclesInterval))) then {
 		_vehiclesList = _heavyVehicles;
 	};
 	_vData = [_this select 0, 0, selectRandom _vehiclesList, east] call BIS_fnc_spawnVehicle;
@@ -146,9 +148,9 @@ _spawnNextWave = {
 	};
 
 	if ((currentWave mod vehicleWaves) == 0) then {
-		[_spawnVehicle1] call _spawnVehicleWithCrew;
+		[_spawnVehicle1, 0] call _spawnVehicleWithCrew;
 		if (currentWave >= moreVehiclesStartWave) then {
-			[_spawnVehicle2] call _spawnVehicleWithCrew;
+			[_spawnVehicle2, 1] call _spawnVehicleWithCrew;
 		};
 	};
 
@@ -171,6 +173,7 @@ _spawnNextWave = {
 		publicVariable "money";
 		[money] remoteExecCall ["updateMoney"];
 	};
+	[currentWave] spawn "fillAmmobox.sqf";
 	[+allDead] spawn {
 		sleep 60;
 		{

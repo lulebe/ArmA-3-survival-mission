@@ -6,6 +6,7 @@ if (!loadedFromSave) then {
 	unitsOfCurrentWave = [];
 	startNextWaveNow = false;
 	noWaveReward = false;
+	ammoBoxes = [];
 
 	money = 150;
 	killRewardUnit = 10;
@@ -20,6 +21,7 @@ if (!loadedFromSave) then {
 	helicopterWaves = 5;
 	heavyVehiclesStartWave = 10;
 	moreVehiclesStartWave = 16;
+	moreHeavyVehiclesInterval = 10;
 };
 
 
