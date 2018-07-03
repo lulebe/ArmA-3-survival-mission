@@ -56,8 +56,8 @@ _firstWaveWaitDisplayHandler = [] spawn {
 };
 
 if (!loadedFromSave) then {
-	waitUntil {(time - timeAtStart) >= 180 || startNextWaveNow};
 	[0] execVM "fillAmmobox.sqf";
+	waitUntil {(time - timeAtStart) >= 180 || startNextWaveNow};
 } else {
 	waitUntil {(time - timeAtStart) >= (waveDelay + (currentWave * addedWaveDelay)) || startNextWaveNow};
 };

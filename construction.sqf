@@ -57,6 +57,10 @@ _buildOptions = [
 			_building = _placedBuilding;
 		};
 		_building setDamage 0;
+	}, {true}, "", false],
+	["supply drop", "", 1000, [0,0,0], {
+		[] remoteExec ["supplyDrop", 2];
+		"supply drop incoming..." remoteExec ["hint"];
 	}, {true}, "", false]
 ];
 buildActionIds = [];

@@ -92,3 +92,10 @@ weaponUnlockedInfo = {
 	cutRsc ["WeaponUnlockInfoDisplayTitle", "PLAIN"];
 	uiNamespace getVariable "weaponunlockinfodspl" displayCtrl 201 ctrlSetStructuredText parseText ("<t align='center' color='#000000'>Unlocked " + _name + "</t><br/><img align='center' image='" + _imgPath + "' size='5' />");
 };
+miscUnlockedInfo = {
+	_name spawn {
+		sleep 6;
+		cutRsc ["WeaponUnlockInfoDisplayTitle", "PLAIN"];
+		uiNamespace getVariable "weaponunlockinfodspl" displayCtrl 201 ctrlSetStructuredText parseText ("<t align='center' color='#000000'>Unlocked a new Item:<br/>" + _name + "</t>");
+	};
+};

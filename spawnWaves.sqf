@@ -46,7 +46,7 @@ _spawnUnitsAsGroup = {
 	for "_x" from 1 to _unitCount do {
 		_unit = _group createUnit [selectRandom _normalUnits, _position, [], 3, "FORM"];
 		if (!(isNull _unit)) then {
-			_unit setSkill 0.9;
+			_unit setSkill 0.8;
 			livingUnits = livingUnits + 1;
 			unitsOfCurrentWave pushBack _unit;
 			_unit addEventHandler ["killed", {
@@ -74,8 +74,7 @@ _spawnUnitsAsGroup = {
 _spawnVehicleWithCrew = {
 	_vehNum = _this select 1;
 	_vehiclesList = _normalVehicles;
-	_vehTypeRanMid = currentWave+heavyVehiclesStartWave max 65;
-	if (currentWave <= (_heavyVehiclesStartWave + (_vehNum * moreHeavyVehiclesInterval))) then {
+	if (currentWave <= (heavyVehiclesStartWave + (_vehNum * moreHeavyVehiclesInterval))) then {
 		_vehiclesList = _heavyVehicles;
 	};
 	_vData = [_this select 0, 0, selectRandom _vehiclesList, east] call BIS_fnc_spawnVehicle;
@@ -128,7 +127,6 @@ _spawnHelicopterWithCrew = {
 };
 
 _spawnNextWave = {
-	hint str (playersNumber west);
 	{
 		_x removeAllEventHandlers "killed";
 		_x setDamage 1;
@@ -140,7 +138,7 @@ _spawnNextWave = {
 	waveRunning = true;
 	publicVariable "waveRunning";
 
-	_totalUnits = floor (currentWave * 2 * (0.6 + ((playersNumber west) * 0.4)));
+	_totalUnits = floor (currentWave * 2 * (0.6 + ((count allPlayers) * 0.4)));
 	_groups = ceil (currentWave / 7);
 	_unitsPerGroup = floor (_totalUnits / _groups);
 	for "_x" from 1 to _groups do {
@@ -173,7 +171,7 @@ _spawnNextWave = {
 		publicVariable "money";
 		[money] remoteExecCall ["updateMoney"];
 	};
-	[currentWave] spawn "fillAmmobox.sqf";
+	[currentWave] execVM "fillAmmobox.sqf";
 	[+allDead] spawn {
 		sleep 60;
 		{
