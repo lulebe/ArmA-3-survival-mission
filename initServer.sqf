@@ -16,7 +16,7 @@ if (!loadedFromSave) then {
 	staticAAPlaced = [];
 
 	waveDelay = 30;
-	addedWaveDelay = 5;
+	addedWaveDelay = 9;
 	vehicleWaves = 3;
 	helicopterWaves = 5;
 	heavyVehiclesStartWave = 10;
@@ -57,6 +57,7 @@ _firstWaveWaitDisplayHandler = [] spawn {
 
 if (!loadedFromSave) then {
 	waitUntil {(time - timeAtStart) >= 180 || startNextWaveNow};
+	[0] execVM "fillAmmobox.sqf";
 } else {
 	waitUntil {(time - timeAtStart) >= (waveDelay + (currentWave * addedWaveDelay)) || startNextWaveNow};
 };
