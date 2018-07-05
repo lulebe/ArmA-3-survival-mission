@@ -15,3 +15,6 @@ while { waveRunning } do {
 	} foreach _this;
 	sleep 5;
 };
+{
+	deleteMarker _x;
+} forEach _markers;
