@@ -9,9 +9,9 @@ if (!loadedFromSave) then {
 	ammoBoxes = [];
 
 	money = 150;
-	killRewardUnit = 15;
-	killRewardVehicle = 120;
-	killRewardHelicopter = 200;
+	killRewardUnit = 28;
+	killRewardVehicle = 200;
+	killRewardHelicopter = 300;
 
 	staticAAPlaced = [];
 
@@ -27,16 +27,16 @@ if (!loadedFromSave) then {
 	allGear = [
 		//[isWeapon, price, classname/type, hasAccumulatingAmmo]
 		[true,0,"hgun_P07_F"],
-		[true,200,"hgun_ACPC2_F"],
+		[true,100,"hgun_ACPC2_F"],
 		[true,500,"hgun_PDW2000_F"],
 		[true,150,"SMG_01_F"],
-		[true,400,"arifle_MX_F"],
-		[true,600,"arifle_MX_GL_F"],
-		[true,800,"arifle_SPAR_03_blk_F"],
-		[true,900,"arifle_SPAR_01_GL_blk_F"],
-		[true,900,"LMG_Mk200_F"],
-		[true,1200,"MMG_01_tan_F"],
-		[true,900,"srifle_DMR_05_blk_F"],
+		[true,500,"arifle_MX_F"],
+		[true,750,"arifle_MX_GL_F"],
+		[true,1200,"arifle_SPAR_03_blk_F"],
+		[true,1000,"arifle_SPAR_01_GL_blk_F"],
+		[true,1100,"LMG_Mk200_F"],
+		[true,1600,"MMG_01_tan_F"],
+		[true,1000,"srifle_DMR_05_blk_F"],
 		[true,1200,"srifle_LRR_F"],
 		[true,0,"launch_RPG7_F"],
 		[true,600,"launch_RPG32_F"],
@@ -45,7 +45,7 @@ if (!loadedFromSave) then {
 		[false,700,"UAV Terminal"],
 		[false,250,"APERS Mines"],
 		[false,300,"Explosive Charges"],
-		[false,600,"Satchel Charges"],
+		[false,1000,"Satchel Charges"],
 		[false,200,"Red Dot Optics"],
 		[false,600,"Hybrid Optics"],
 		[false,700,"Sniper Optics"],

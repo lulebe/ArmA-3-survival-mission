@@ -143,7 +143,7 @@ _spawnNextWave = {
 	waveRunning = true;
 	publicVariable "waveRunning";
 
-	_totalUnits = floor (currentWave * 1.5 * (0.6 + ((count allPlayers) * 0.4)));
+	_totalUnits = floor (currentWave * 1.35 * (0.6 + ((count allPlayers) * 0.4)));
 	_groups = ceil (currentWave / 7);
 	_unitsPerGroup = floor (_totalUnits / _groups);
 	for "_x" from 1 to _groups do {
