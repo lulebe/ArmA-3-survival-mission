@@ -32,6 +32,8 @@ onKill = {
 	if ((_this select 0) == killRewardUnit) then {
 		livingUnits = livingUnits - 1;
 		[livingUnits] remoteExecCall ["showKill"];
+		removeAllWeapons (_this select 1);
+		removeAllItems (_this select 1);
 	};
 	money = money + (_this select 0);
 	publicVariable "money";
@@ -51,7 +53,7 @@ _spawnUnitsAsGroup = {
 			_unit addEventHandler ["killed", {
 				_u = _this select 0;
 				_u removeAllEventHandlers "killed";
-				[killRewardUnit] call onKill;
+				[killRewardUnit, _u] call onKill;
 			}];
 		};
 	};
@@ -89,7 +91,7 @@ _spawnVehicleWithCrew = {
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[killRewardUnit] call onKill;
+			[killRewardUnit, _u] call onKill;
 		}];
 	} forEach (_vData select 1);
 	_group = _vData select 2;
@@ -113,7 +115,7 @@ _spawnHelicopterWithCrew = {
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[killRewardUnit] call onKill;
+			[killRewardUnit, _u] call onKill;
 		}];
 	} forEach (_vData select 1);
 	_group = _vData select 2;
