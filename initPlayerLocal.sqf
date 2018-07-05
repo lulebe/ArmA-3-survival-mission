@@ -75,6 +75,7 @@ updateMoney = {
 };
 
 titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
+[150] call updateMoney;
 [] spawn {
 	sleep 30;
 	while {true} do {
@@ -130,7 +131,7 @@ addGearToShop = {
 buyGear = {
 	_gear = (allGear - unlockedGear) select _this;
 	if ((_gear select 1) <= money) then {
-		money = money + (_gear select 1);
+		money = money - (_gear select 1);
 		publicVariable "money";
 		unlockedGear = unlockedGear + [_gear];
 		publicVariable "unlockedGear";

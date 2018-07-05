@@ -19,10 +19,10 @@ _buildOptions = [
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
 		_this setVariable ["builtInWave", currentWave];
 		_this spawn {
-			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
-				deleteVehicle _this;
+			while {currentWave < ((_this getVariable "builtInWave") + 3)} do {
 				sleep 5;
 			};
+			deleteVehicle _this;
 		};
 	}, {true}, "", false, []],
 	["static AT (7 rounds)", "B_static_AT_F", 700, [0,1,1], {
@@ -30,10 +30,10 @@ _buildOptions = [
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
 		_this setVariable ["builtInWave", currentWave];
 		_this spawn {
-			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
-				deleteVehicle _this;
+			while {currentWave < ((_this getVariable "builtInWave") + 7)} do {
 				sleep 5;
 			};
+			deleteVehicle _this;
 		};
 	}, {true}, "", false, []],
 	["build/rearm automatic AA", "", 900, [0,0,0], {

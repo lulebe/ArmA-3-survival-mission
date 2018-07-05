@@ -8,7 +8,7 @@ if (!loadedFromSave) then {
 	noWaveReward = false;
 	ammoBoxes = [];
 
-	money = 150;
+	money = 1500;
 	killRewardUnit = 15;
 	killRewardVehicle = 100;
 	killRewardHelicopter = 140;
@@ -104,7 +104,7 @@ _firstWaveWaitDisplayHandler = [] spawn {
 };
 
 if (!loadedFromSave) then {
-	[0] execVM "fillAmmobox.sqf";
+	[1] execVM "fillAmmobox.sqf";
 	waitUntil {(time - timeAtStart) >= 180 || startNextWaveNow};
 } else {
 	waitUntil {(time - timeAtStart) >= (waveDelay + (currentWave * addedWaveDelay)) || startNextWaveNow};
