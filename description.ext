@@ -1,4 +1,5 @@
 #include "SRS\GUI\SRSdialogs.hpp"
+#include "missingbaseclasses.hpp"
 
 class CfgFunctions {
     #include "SRS\CfgFunctions.hpp"
@@ -8,6 +9,32 @@ class CfgFunctions {
                 file = "loadFromSave.sqf";
                 preInit = 1;
             };
+        };
+    };
+};
+
+class GearShopDisplay {
+    idd = 31;
+    movingenable = 0;
+    onLoad = "uiNamespace setVariable ['gearshop', _this select 0]; true call addGearToShop;";
+    onUnload = "uiNamespace setVariable ['gearshop', displayNull];";
+    class Controls {
+        class BtnClose: RscButton {
+            idc = 303;
+            text = "Leave Shop";
+            x = 0.463906 * safezoneW + safezoneX;
+            y = 0.588 * safezoneH + safezoneY;
+            w = 0.0567187 * safezoneW;
+            h = 0.044 * safezoneH;
+            action = "closeDialog 0;";
+        };
+        class LbGear: RscListbox {
+            idc = 302;
+            x = 0.350469 * safezoneW + safezoneX;
+            y = 0.302 * safezoneH + safezoneY;
+            w = 0.299062 * safezoneW;
+            h = 0.275 * safezoneH;
+            onLBDblClick = "(_this select 1) call buyGear;";
         };
     };
 };

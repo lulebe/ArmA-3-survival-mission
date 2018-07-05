@@ -3,17 +3,20 @@ player removeAction _enterActionId;
 
 
 _buildOptions = [
-	["low sandbags", "Land_SandbagBarricade_01_half_F", 90, [0,1,0.55], {}, {true}, "", true],
-	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, "", false],
-	["concrete shelter", "Land_CnCShelter_F", 180, [0,1,1], {}, {true}, "", false],
-	["concrete roof", "Land_Wall_IndCnc_4_F", 450, [0,0,2.07], {
-		_this setVectorDirAndUp [[0,0,-1], [1,0,0]];
-	}, {true}, "", true],
-	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, "", false],
+	["low sandbags", "Land_SandbagBarricade_01_half_F", 90, [0,1,0.55], {}, {true}, "", true, []],
+	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, "", false, []],
+	["concrete shelter", "Land_CnCShelter_F", 180, [0,1,1], {}, {true}, "", false, []],
+	["ramp", "Land_Obstacle_Ramp_F", 200, [0,2,0.5], {ramp = _this}, {true}, "", true, [[0,-1,0],[0,0,1]]],
+	["concrete roof", "Land_ConcreteWall_01_m_4m_F", 450, [0,0,2.07], {
+		_walkway = "Land_Sidewalk_01_narrow_4m_F" createVehicle position _this;
+		_walkway attachTo [_this, [0,0,0]];
+		_walkway setVectorDirAndUp [[0,0,1], [0,-1,0]];
+		_walkway allowDamage false;
+	}, {true}, "", true, [[0,0,-1], [1,0,0]]],
+	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, "", false, []],
 	["static MG (3 rounds)", "B_HMG_01_high_F", 400, [0,1,1.7], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
-		_this allowDamage false;
 		_this setVariable ["builtInWave", currentWave];
 		_this spawn {
 			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
@@ -21,11 +24,10 @@ _buildOptions = [
 				sleep 5;
 			};
 		};
-	}, {true}, "", false],
+	}, {true}, "", false, []],
 	["static AT (7 rounds)", "B_static_AT_F", 700, [0,1,1], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
-		_this allowDamage false;
 		_this setVariable ["builtInWave", currentWave];
 		_this spawn {
 			while {currentWave < ((_this getVariable "builtInWave") + 8)} do {
@@ -33,7 +35,7 @@ _buildOptions = [
 				sleep 5;
 			};
 		};
-	}, {true}, "", false],
+	}, {true}, "", false, []],
 	["build/rearm automatic AA", "", 900, [0,0,0], {
 		if (count staticAAPlaced > 0) then {
 			{ deleteVehicle _x } forEach (staticAAPlaced select 1);
@@ -44,11 +46,11 @@ _buildOptions = [
 		(_vData select 0) setCaptive true;
 		(_vData select 0) setVehicleAmmo 0.3;
 		publicVariable "staticAA";
-	}, {true}, "AA is already installed.", false],
+	}, {true}, "AA is already installed.", false, []],
 	["recruit soldier", "", 1000, [0,1,0], {
 		_s = (group player) createUnit ["B_Soldier_F", position player, [], 0, "NONE"];
 		_s execVM "recruitedSoldier.sqf";
-	}, {true}, "", false],
+	}, {true}, "", false, []],
 	["repair building", "", 1000, [0,0,0], {
 		_inclBuilding = nearestBuilding player;
 		_placedBuilding = nearestObjects [player, ["House", "Building"], 100] select 0;
@@ -57,11 +59,11 @@ _buildOptions = [
 			_building = _placedBuilding;
 		};
 		_building setDamage 0;
-	}, {true}, "", false],
+	}, {true}, "", false, []],
 	["supply drop", "", 1000, [0,0,0], {
 		[] remoteExec ["supplyDrop", 2];
 		"supply drop incoming..." remoteExec ["hint"];
-	}, {true}, "", false]
+	}, {true}, "", false, []]
 ];
 buildActionIds = [];
 constructionConfirmAction = 0;
@@ -117,6 +119,10 @@ moveBuildUp = {
 	_offsetVertical = (_offset select 2) + (constructionObject getVariable ["translationVertical", 0]);
 	detach constructionObject;
 	constructionObject attachTo [player, [_offset select 0, _offset select 1, _offsetVertical]];
+	_vectorDirUp = constructionObject getVariable "vectorDirUp";
+	if (count _vectorDirUp > 0) then {
+		constructionObject setVectorDirAndUp _vectorDirUp;
+	};
 };
 moveBuildDown = {
 	constructionObject setVariable ["translationVertical", (constructionObject getVariable ["translationVertical", 0]) - 0.1];
@@ -124,6 +130,10 @@ moveBuildDown = {
 	_offsetVertical = (_offset select 2) + (constructionObject getVariable ["translationVertical", 0]);
 	detach constructionObject;
 	constructionObject attachTo [player, [_offset select 0, _offset select 1, _offsetVertical]];
+	_vectorDirUp = constructionObject getVariable "vectorDirUp";
+	if (count _vectorDirUp > 0) then {
+		constructionObject setVectorDirAndUp _vectorDirUp;
+	};
 };
 autoCancelBuild = {
 	waitUntil { waveRunning; };
@@ -156,6 +166,7 @@ _buildObject = {
 	_condition = _infoBuildObject select 5;
 	_conditionErrorMsg = _infoBuildObject select 6;
 	_canMoveUpAndDown = _infoBuildObject select 7;
+	_vectorDirUp = _infoBuildObject select 8;
 	if (money >= _price) then {
 		if ([] call _condition) then {
 			money = money - _price;
@@ -166,15 +177,20 @@ _buildObject = {
 			} else {
 				player setVariable ["constructionOngoing", true];
 				_object = _class createVehicle position player;
+				_object allowDamage false;
 				_object attachTo [player, _offset];
 				constructionObject = _object;
 				constructionObject setVariable ["defaultOffset", _offset];
+				constructionObject setVariable ["vectorDirUp", _vectorDirUp];
 				_object setVariable ["unconfirmed", true];
 				constructionCancelAction = player addAction ["<t color='#ff0000'>cancel build</t>", cancelBuild, [_price], 9];
 				constructionConfirmAction = player addAction ["<t color='#00ff00'>confirm build</t>", confirmBuild, [], 10];
 				if (_canMoveUpAndDown) then {
 					constructionMoveUpAction = player addAction ["<t color='#00ffff'>move up (10cm)</t>", moveBuildUp, [], 8, false, false];
 					constructionMoveDownAction = player addAction ["<t color='#00ffff'>move down (10cm)</t>", moveBuildDown, [], 7, false, false];
+				};
+				if (count _vectorDirUp > 0) then {
+					_object setVectorDirAndUp _vectorDirUp;
 				};
 				_object call _initScript;
 				[_object, _price] spawn autoCancelBuild;

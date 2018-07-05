@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={6727.4565,117.05817,8775.2051};
-		dir[]={-0.29905969,-0.20553984,-0.9319768};
-		up[]={-0.062878348,0.97856534,-0.19595383};
-		aside[]={-0.95227218,5.3434633e-007,0.3055751};
+		pos[]={6643.2217,117.42076,8814.3701};
+		dir[]={-0.89211655,-0.41590106,-0.17723268};
+		up[]={-0.40812612,0.90928972,-0.08108145};
+		aside[]={-0.19487515,9.5501309e-007,0.98093092};
 	};
 };
 binarizationWanted=0;
@@ -2444,18 +2444,18 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6609.4668,109.92914,8807.7471};
-				angles[]={-0,6.1690998,6.2826972};
+				position[]={6609.4668,109.92953,8807.7471};
+				angles[]={0,6.1690931,6.2826962};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
-				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this; ";
 				name="specialBox";
 			};
 			id=316;
 			type="Box_NATO_Equip_F";
+			atlOffset=0.00038909912;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -2615,7 +2615,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={6611.8535,109.54792,8808.374};
-						angles[]={-0,1.1221943,6.2826972};
+						angles[]={0,1.1221943,6.2826972};
 					};
 					side="West";
 					flags=6;
@@ -2718,7 +2718,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={6614.96,109.46486,8807.2646};
-						angles[]={-0,1.1221943,0.00034526698};
+						angles[]={0,1.1221943,0.00034526698};
 					};
 					side="West";
 					flags=6;
@@ -2858,13 +2858,12 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6609.7788,110.43943,8806.1709};
+				position[]={6609.7783,110.43943,8806.1709};
 				angles[]={0,4.5744729,6.2826962};
 			};
 			side="Empty";
 			class Attributes
 			{
-				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this; ";
 				name="weaponBox";
 			};
 			id=336;
@@ -2924,7 +2923,6 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="clearItemCargo this; clearWeaponCargo this; clearMagazineCargo this; clearBackpackCargo this;";
 				name="ammoBox";
 			};
 			id=338;

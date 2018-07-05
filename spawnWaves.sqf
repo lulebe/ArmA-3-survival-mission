@@ -26,7 +26,6 @@ _setupGroup = {
 	_wp = _group addWaypoint [markerPos "target", 0];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointSpeed "FULL";
-	{_group reveal [_x, 3]} forEach allPlayers;
 };
 
 onKill = {
