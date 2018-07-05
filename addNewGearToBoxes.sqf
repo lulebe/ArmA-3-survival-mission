@@ -1,5 +1,18 @@
+_name = _this select 2;
 if (_this select 0) then { //is Weapon
-	weaponBox addWeaponCargoGlobal [_this select 2, count allPlayers];
+	weaponBox addWeaponCargoGlobal [_name, count allPlayers];
+	if (_name == "launch_RPG7_F") then { //RPG rockets
+		specialBox addMagazineCargoGlobal ["RPG7_F", (ceil (currentWave / 3.0)) min 2];
+	};
+	if (_name == "launch_B_Titan_F") then { //titan rockets
+		specialBox addMagazineCargoGlobal ["Titan_AA", 2];
+	};
+	if (_name == "launch_RPG32_F") then { //RPG42 rockets
+		specialBox addMagazineCargoGlobal ["RPG32_F", (ceil (currentWave / 3.0)) min 5];
+	};
+	if (_name == "launch_B_Titan_short_F") then { //titan short rockets
+		specialBox addMagazineCargoGlobal ["Titan_AT", (ceil (currentWave / 4.0)) min 2];
+	};	
 } else {
 	_playerCount = count allPlayers;
 	_name = _this select 2;
@@ -34,16 +47,4 @@ if (_this select 0) then { //is Weapon
 	if (_name == "Satchel Charges") then { //satchel charges
 		specialBox addMagazineCargoGlobal ["SatchelCharge_Remote_Mag", 1];
 	};
-	if (_name == "launch_RPG7_F") then { //RPG rockets
-		specialBox addMagazineCargoGlobal ["RPG7_F", (ceil (currentWave / 3.0)) min 2];
-	};
-	if (_name == "launch_B_Titan_F") then { //titan rockets
-		specialBox addMagazineCargoGlobal ["Titan_AA", 2];
-	};
-	if (_name == "launch_RPG32_F") then { //RPG42 rockets
-		specialBox addMagazineCargoGlobal ["RPG32_F", (ceil (currentWave / 3.0)) min 5];
-	};
-	if (_name == "launch_B_Titan_short_F") then { //titan short rockets
-		specialBox addMagazineCargoGlobal ["Titan_AT", (ceil (currentWave / 4.0)) min 2];
-	};	
 };
