@@ -8,7 +8,7 @@ if (!loadedFromSave) then {
 	noWaveReward = false;
 	ammoBoxes = [];
 
-	money = 1500;
+	money = 150;
 	killRewardUnit = 15;
 	killRewardVehicle = 100;
 	killRewardHelicopter = 140;
