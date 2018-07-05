@@ -80,6 +80,10 @@ _spawnVehicleWithCrew = {
 	};
 	_vData = [_this select 0, 0, selectRandom _vehiclesList, east] call BIS_fnc_spawnVehicle;
 	_vData select 0 setDir 180;
+	clearMagazineCargoGlobal (_vData select 0);
+	clearItemCargoGlobal (_vData select 0);
+	clearWeaponCargoGlobal (_vData select 0);
+	clearBackpackCargoGlobal (_vData select 0);
 	(_vData select 0) addEventHandler ["killed", {
 		_u = _this select 0;
 		_u removeAllEventHandlers "killed";

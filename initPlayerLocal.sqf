@@ -133,6 +133,7 @@ buyGear = {
 	if ((_gear select 1) <= money) then {
 		money = money - (_gear select 1);
 		publicVariable "money";
+		[money] remoteExecCall ["updateMoney"];
 		unlockedGear = unlockedGear + [_gear];
 		publicVariable "unlockedGear";
 		false call addGearToShop;
