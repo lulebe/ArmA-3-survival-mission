@@ -10,8 +10,8 @@ if (!loadedFromSave) then {
 
 	money = 150;
 	killRewardUnit = 15;
-	killRewardVehicle = 100;
-	killRewardHelicopter = 140;
+	killRewardVehicle = 120;
+	killRewardHelicopter = 200;
 
 	staticAAPlaced = [];
 

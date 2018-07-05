@@ -157,6 +157,9 @@ _spawnNextWave = {
 	[currentWave, livingUnits, vehicleWaves, helicopterWaves] remoteExecCall ["showWaveStart"];
 	_waveRewardMax = livingUnits * _waveUnitRewardFactor;
 	_waveStartTime = time;
+	waitUntil { livingUnits <= (_totalUnits / 3) };
+	//show units on map
+	unitsOfCurrentWave execVM "revealUnitsOnMap.sqf";
 	waitUntil { livingUnits <= 0; };
 	waveRunning = false;
 	publicVariable "waveRunning";
