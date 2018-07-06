@@ -49,7 +49,8 @@ if (!loadedFromSave) then {
 		[false,200,"Red Dot Optics"],
 		[false,600,"Hybrid Optics"],
 		[false,700,"Sniper Optics"],
-		[false,800,"Thermal Optics"]
+		[false,800,"Thermal Optics"],
+		[false,350,"Bipods"]
 	];
 	unlockedGear = [];
 	unlockedAmmo = [];

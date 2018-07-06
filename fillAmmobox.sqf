@@ -61,6 +61,9 @@ if ("Thermal Optics" call _itemIsUnlocked) then { //thermal optics
 	ammoBox addItemCargoGlobal ["optic_tws", _playerCount];
 	ammoBox addItemCargoGlobal ["optic_tws_mg", _playerCount];
 };
+if ("Bipods" call _itemIsUnlocked) then { //bipods
+	ammoBox addItemCargoGlobal ["bipod_01_F_blk", _playerCount];
+};
 
 
 

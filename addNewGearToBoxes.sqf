@@ -38,6 +38,9 @@ if (_this select 0) then { //is Weapon
 		ammoBox addItemCargoGlobal ["optic_tws", _playerCount];
 		ammoBox addItemCargoGlobal ["optic_tws_mg", _playerCount];
 	};
+	if (_name == "Bipods") then { //bipods
+		ammoBox addItemCargoGlobal ["bipod_01_F_blk", _playerCount];
+	};
 	if (_name == "APERS Mines") then { //apers mines
 		specialBox addMagazineCargoGlobal ["APERSMine_Range_Mag", ceil (currentWave * 0.4)];
 	};
