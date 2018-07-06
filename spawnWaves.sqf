@@ -122,8 +122,13 @@ _spawnHelicopterWithCrew = {
 			[killRewardUnit, _u] call onKill;
 		}];
 	} forEach (_vData select 1);
+	((_vData select 1) select 0) spawn {
+		while {alive _this} do {
+			{ (group _this) reveal [_x, 2] } forEach allPlayers;
+			sleep 5;
+		};
+	};
 	_group = _vData select 2;
-	{ _group reveal [_x, 2] } forEach allPlayers;
 	[_group] call _setupGroup;
 	_wp2 = _group addWaypoint [markerPos "target", 5];
 	_wp2 setWaypointType "SAD";
