@@ -18,9 +18,9 @@ _soldier addEventHandler ["HandleDamage", {
 	} else {
 		_prevDamage = _unit getHit _selection;
 	};
-	_addedDamage = ((_damage - _prevDamage) / 20.0);
-	if (_addedDamage < 0.05) then { _addedDamage = 0.05; };
-	if (_addedDamage > 0.15) then { _addedDamage = 0.15; };
+	_addedDamage = ((_damage - _prevDamage) / 30.0);
+	if (_addedDamage < 0.03) then { _addedDamage = 0.03; };
+	if (_addedDamage > 0.1) then { _addedDamage = 0.1; };
 	_newDamage = _prevDamage + _addedDamage;
 	_newDamage;
 }];

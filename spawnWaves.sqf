@@ -124,7 +124,7 @@ _spawnHelicopterWithCrew = {
 	} forEach (_vData select 1);
 	((_vData select 1) select 0) spawn {
 		while {alive _this} do {
-			{ (group _this) reveal [_x, 2] } forEach allPlayers;
+			{ (group _this) reveal [_x, 1.5] } forEach allPlayers;
 			sleep 5;
 		};
 	};

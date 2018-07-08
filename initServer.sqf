@@ -9,9 +9,9 @@ if (!loadedFromSave) then {
 	ammoBoxes = [];
 
 	money = 150;
-	killRewardUnit = 28;
-	killRewardVehicle = 200;
-	killRewardHelicopter = 300;
+	killRewardUnit = 30;
+	killRewardVehicle = 250;
+	killRewardHelicopter = 400;
 
 	staticAAPlaced = [];
 
