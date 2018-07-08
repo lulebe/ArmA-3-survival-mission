@@ -42,6 +42,16 @@ else{
 	if ((_this select 4) isEqualTo "") then {
 		_addedDamage = _addedDamage * 6;
 	};
+	if ((_unit getVariable ["hasArmor", false])) then {
+		_newArmor = (_unit getVariable ["armor", 0]) - _addedDamage;
+		if (_newArmor < 0) then {
+			[_unit] call LLB_fnc_removeArmor;
+			_addedDamage = 0 - _newArmor;
+		} else {
+			_unit setVariable ["armor", _newArmor];
+			_addedDamage = 0;
+		};
+	};
 	_newDamage = _prevDamage + _addedDamage;
 
 	switch(_selection) do {

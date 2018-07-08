@@ -15,6 +15,7 @@ displayUnitDamage = {
 		0,
 		1
 	];
+	uiNamespace getVariable "infodspl" displayCtrl 104 progressSetPosition (player getVariable ["armor", 0]);
 };
 
 [] spawn {

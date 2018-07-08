@@ -63,6 +63,9 @@ _buildOptions = [
 	["supply drop", "", 1000, [0,0,0], {
 		[] remoteExec ["supplyDrop", 2];
 		"supply drop incoming..." remoteExec ["hint"];
+	}, {true}, "", false, []],
+	["buy Armor", "", 1000, [0,0,0], {
+		[] call LLB_fnc_buyArmor;
 	}, {true}, "", false, []]
 ];
 buildActionIds = [];

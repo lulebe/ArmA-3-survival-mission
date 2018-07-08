@@ -9,6 +9,12 @@ class CfgFunctions {
                 file = "loadFromSave.sqf";
                 preInit = 1;
             };
+            class removeArmor {
+                file = "removeArmor.sqf";
+            };
+            class buyArmor {
+                file = "buyArmor.sqf";
+            };
         };
     };
 };
@@ -138,6 +144,32 @@ class RscTitles {
                 colorBackground[] = {0,0,0,0};
                 colorText[] = {1,1,1,1};
                 text = "Health";
+            };
+            class ArmorInfoDisplayControl {
+                idc = 106;
+                type = 8;
+                style = 0;
+                colorFrame[] = {0,0,0,1};
+                colorBar[] = {0.3,0.3,1,1};
+                texture = "#(argb,8,8,3)color(1,1,1,1)";
+                x = safezoneX + (safezoneW / 2.0) - 0.25;
+                y = safezoneY + safezoneH - 0.13;
+                w = 0.5;
+                h = 0.03;
+            };
+            class ArmorInfoTextDisplayControl {
+                idc = 107;
+                type = 0;
+                style = 2;
+                x = safezoneX + (safezoneW / 2.0) - 0.25;
+                y = safezoneY + safezoneH - 0.193;
+                w = 0.5;
+                h = 0.1;
+                font = "EtelkaNarrowMediumPro";
+                sizeEx = 0.04;
+                colorBackground[] = {0,0,0,0};
+                colorText[] = {1,1,1,1};
+                text = "Armor";
             };
         };
     };
