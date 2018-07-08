@@ -1,5 +1,5 @@
 player setVariable ["hasArmor", true];
-player setVariable ["armor", 1.0];
+player setVariable ["armor", 15.0];
 
 _uniformWeapons = weaponCargo (uniformContainer player);
 _uniformMagazines = magazineCargo (uniformContainer player);
