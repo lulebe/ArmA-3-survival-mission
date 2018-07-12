@@ -1,10 +1,30 @@
 _helicopterHeight = 30;
 _waveUnitRewardFactor = 15;
 
-_normalUnits = ["O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Soldier_F", "O_Solder_AR_F", "O_Soldier_GL_F", "O_Soldier_M_F", "O_HeavyGunner_F"];
-_normalHelicopters = ["O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"];
-_normalVehicles = ["O_LSV_02_Armed_F", "O_MRAP_02_hmg_F", "O_G_Offroad_01_armed_F"];
-_heavyVehicles = ["O_MBT_02_cannon_F", "O_APC_tracked_02_cannon_F", "O_APC_wheeled_02_rcws_v2_F"];
+_normalUnits = [
+	["O_Soldier_F", 30],
+	["O_Soldier_F", 30],
+	["O_Soldier_F", 30],
+	["O_Soldier_F", 30],
+	["O_Solder_AR_F", 50],
+	["O_Soldier_GL_F", 40],
+	["O_Soldier_M_F", 60],
+	["O_HeavyGunner_F", 80]
+];
+_normalHelicopters = [
+	["O_Heli_Light_02_dynamicLoadout_F", 300],
+	["O_Heli_Attack_02_dynamicLoadout_F", 500]
+];
+_normalVehicles = [
+	["O_LSV_02_Armed_F", 150],
+	["O_MRAP_02_hmg_F", 200],
+	["O_G_Offroad_01_armed_F", 150]
+];
+_heavyVehicles = [
+	["O_MBT_02_cannon_F", 500],
+	["O_APC_tracked_02_cannon_F", 400],
+	["O_APC_wheeled_02_rcws_v2_F", 350]
+];
 
 
 _spawnsUnits = [
@@ -29,7 +49,7 @@ _setupGroup = {
 };
 
 onKill = {
-	if ((_this select 0) == killRewardUnit) then {
+	if ((_this select 0) < 100) then {
 		livingUnits = livingUnits - 1;
 		[livingUnits] remoteExecCall ["showKill"];
 		removeAllWeapons (_this select 1);
@@ -45,15 +65,17 @@ _spawnUnitsAsGroup = {
 	_group = createGroup east;
 	_position = markerPos (selectRandom _spawnsUnits);
 	for "_x" from 1 to _unitCount do {
-		_unit = _group createUnit [selectRandom _normalUnits, _position, [], 3, "FORM"];
+		_selectedUnit = selectRandom _normalUnits;
+		_unit = _group createUnit [_selectedUnit select 0, _position, [], 3, "FORM"];
 		if (!(isNull _unit)) then {
 			_unit setSkill 0.7;
+			_unit setVariable ["killReward", _selectedUnit select 1];
 			livingUnits = livingUnits + 1;
 			unitsOfCurrentWave pushBack _unit;
 			_unit addEventHandler ["killed", {
 				_u = _this select 0;
 				_u removeAllEventHandlers "killed";
-				[killRewardUnit, _u] call onKill;
+				[_u getVariable "killReward", _u] call onKill;
 			}];
 		};
 	};
@@ -95,7 +117,7 @@ _spawnVehicleWithCrew = {
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[killRewardUnit, _u] call onKill;
+			[30, _u] call onKill;
 		}];
 	} forEach (_vData select 1);
 	_group = _vData select 2;
@@ -119,7 +141,7 @@ _spawnHelicopterWithCrew = {
 		_x addEventHandler ["killed", {
 			_u = _this select 0;
 			_u removeAllEventHandlers "killed";
-			[killRewardUnit, _u] call onKill;
+			[30, _u] call onKill;
 		}];
 	} forEach (_vData select 1);
 	((_vData select 1) select 0) spawn {
@@ -176,7 +198,7 @@ _spawnNextWave = {
 	publicVariable "waveRunning";
 	waveEndTime = time;
 	if (!noWaveReward) then {
-		_waveReward = _waveRewardMax - round (waveEndTime - _waveStartTime);
+		_waveReward = _waveRewardMax - round (waveEndTime - _waveStartTime) + 10;
 		if (_waveReward < 0) then {
 			_waveReward = 0
 		};

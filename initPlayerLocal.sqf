@@ -76,7 +76,7 @@ updateMoney = {
 };
 
 titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
-[150] call updateMoney;
+[300] call updateMoney;
 [] spawn {
 	sleep 30;
 	while {true} do {

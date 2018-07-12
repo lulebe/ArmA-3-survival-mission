@@ -8,10 +8,7 @@ if (!loadedFromSave) then {
 	noWaveReward = false;
 	ammoBoxes = [];
 
-	money = 150;
-	killRewardUnit = 30;
-	killRewardVehicle = 250;
-	killRewardHelicopter = 400;
+	money = 300;
 
 	staticAAPlaced = [];
 
@@ -25,19 +22,19 @@ if (!loadedFromSave) then {
 
 	//shopping
 	allGear = [
-		//[isWeapon, price, classname/type, hasAccumulatingAmmo]
+		//[isWeapon, price, classname/type]
 		[true,0,"hgun_P07_F"],
 		[true,100,"hgun_ACPC2_F"],
 		[true,500,"hgun_PDW2000_F"],
 		[true,150,"SMG_01_F"],
-		[true,500,"arifle_MX_F"],
-		[true,750,"arifle_MX_GL_F"],
-		[true,1200,"arifle_SPAR_03_blk_F"],
-		[true,1000,"arifle_SPAR_01_GL_blk_F"],
+		[true,600,"arifle_MX_F"],
+		[true,900,"arifle_MX_GL_F"],
+		[true,1500,"arifle_SPAR_03_blk_F"],
+		[true,1500,"arifle_SPAR_01_GL_blk_F"],
 		[true,1100,"LMG_Mk200_F"],
-		[true,1600,"MMG_01_tan_F"],
-		[true,1000,"srifle_DMR_05_blk_F"],
-		[true,1200,"srifle_LRR_F"],
+		[true,2000,"MMG_01_tan_F"],
+		[true,1100,"srifle_DMR_05_blk_F"],
+		[true,1600,"srifle_LRR_F"],
 		[true,0,"launch_RPG7_F"],
 		[true,600,"launch_RPG32_F"],
 		[true,0,"launch_B_Titan_F"],
@@ -60,9 +57,6 @@ if (!loadedFromSave) then {
 publicVariable "waveRunning";
 publicVariable "currentWave";
 publicVariable "money";
-publicVariable "killRewardUnit";
-publicVariable "killRewardVehicle";
-publicVariable "killRewardHelicopter";
 publicVariable "staticAA";
 publicVariable "waveDelay";
 publicVariable "vehicleWaves";
