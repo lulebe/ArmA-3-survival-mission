@@ -137,7 +137,7 @@ _spawnHelicopterWithCrew = {
 	_heli addEventHandler ["killed", {
 		_u = _this select 0;
 		_u removeAllEventHandlers "killed";
-		[[_u getVariable "killReward"] call onKill;
+		[_u getVariable "killReward"] call onKill;
 	}];
 	{
 		livingUnits = livingUnits + 1;
