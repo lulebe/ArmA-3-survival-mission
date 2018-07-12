@@ -100,16 +100,18 @@ _spawnVehicleWithCrew = {
 	if (currentWave >= (heavyVehiclesStartWave + (_vehNum * moreHeavyVehiclesInterval))) then {
 		_vehiclesList = _heavyVehicles;
 	};
-	_vData = [_this select 0, 0, selectRandom _vehiclesList, east] call BIS_fnc_spawnVehicle;
+	_selected = selectRandom _vehiclesList;
+	_vData = [_this select 0, 0, _selected select 0, east] call BIS_fnc_spawnVehicle;
 	_vData select 0 setDir 180;
 	clearMagazineCargoGlobal (_vData select 0);
 	clearItemCargoGlobal (_vData select 0);
 	clearWeaponCargoGlobal (_vData select 0);
 	clearBackpackCargoGlobal (_vData select 0);
+	(_vData select 0) setVariable ["killReward", _selected select 1];
 	(_vData select 0) addEventHandler ["killed", {
 		_u = _this select 0;
 		_u removeAllEventHandlers "killed";
-		[killRewardVehicle] call onKill;
+		[_u getVariable "killReward"] call onKill;
 	}];
 	{
 		livingUnits = livingUnits + 1;
@@ -125,15 +127,17 @@ _spawnVehicleWithCrew = {
 };
 
 _spawnHelicopterWithCrew = {
-	_vData = [_spawnHelicopter, 0, selectRandom _normalHelicopters, east] call BIS_fnc_spawnVehicle;
+	_selected = selectRandom _normalHelicopters;
+	_vData = [_spawnHelicopter, 0, _selected select 0, east] call BIS_fnc_spawnVehicle;
 	_heli = _vData select 0;
 	_heli engineOn true;
 	_heli flyInHeight _helicopterHeight;
 	_heli setPos [getPos _heli select 0, getPos _heli select 1, _helicopterHeight];
-	(_vData select 0) addEventHandler ["killed", {
+	_heli setVariable ["killReward", _selected select 1];
+	_heli addEventHandler ["killed", {
 		_u = _this select 0;
 		_u removeAllEventHandlers "killed";
-		[killRewardHelicopter] call onKill;
+		[[_u getVariable "killReward"] call onKill;
 	}];
 	{
 		livingUnits = livingUnits + 1;
