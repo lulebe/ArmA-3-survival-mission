@@ -165,6 +165,14 @@ randomSeed=16635289;
 class ScenarioData
 {
 	author="lulebe";
+	disabledAI=1;
+	joinUnassigned=0;
+	class Header
+	{
+		gameType="Survive";
+		minPlayers=1;
+		maxPlayers=4;
+	};
 };
 class CustomAttributes
 {
@@ -246,6 +254,30 @@ class CustomAttributes
 			};
 		};
 		nAttributes=3;
+	};
+	class Category1
+	{
+		name="Scenario";
+		class Attribute0
+		{
+			property="EnableDebugConsole";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"SCALAR"
+						};
+					};
+					value=2;
+				};
+			};
+		};
+		nAttributes=1;
 	};
 };
 class Mission

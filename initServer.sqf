@@ -22,32 +22,32 @@ if (!loadedFromSave) then {
 
 	//shopping
 	allGear = [
-		//[isWeapon, price, classname/type]
-		[true,0,"hgun_P07_F"],
-		[true,100,"hgun_ACPC2_F"],
-		[true,500,"hgun_PDW2000_F"],
-		[true,150,"SMG_01_F"],
-		[true,600,"arifle_MX_F"],
-		[true,900,"arifle_MX_GL_F"],
-		[true,1500,"arifle_SPAR_03_blk_F"],
-		[true,1500,"arifle_SPAR_01_GL_blk_F"],
-		[true,1100,"LMG_Mk200_F"],
-		[true,2000,"MMG_01_tan_F"],
-		[true,1100,"srifle_DMR_05_blk_F"],
-		[true,1600,"srifle_LRR_F"],
-		[true,0,"launch_RPG7_F"],
-		[true,600,"launch_RPG32_F"],
-		[true,0,"launch_B_Titan_F"],
-		[true,900,"launch_B_Titan_short_F"],
-		[false,700,"UAV Terminal"],
-		[false,250,"APERS Mines"],
-		[false,300,"Explosive Charges"],
-		[false,1000,"Satchel Charges"],
-		[false,200,"Red Dot Optics"],
-		[false,600,"Hybrid Optics"],
-		[false,700,"Sniper Optics"],
-		[false,800,"Thermal Optics"],
-		[false,350,"Bipods"]
+		//[isWeapon, price, classname/type, multipleTimes]
+		[true,0,"hgun_P07_F", false],
+		[true,300,"hgun_Pistol_heavy_01_F", false],
+		[true,150,"SMG_01_F", false],
+		[true,600,"arifle_MX_F", false],
+		[true,900,"arifle_MX_GL_F", false],
+		[true,1500,"arifle_SPAR_03_blk_F", false],
+		[true,1500,"arifle_SPAR_01_GL_blk_F", false],
+		[true,1100,"LMG_Mk200_F", false],
+		[true,2000,"MMG_01_tan_F", false],
+		[true,1100,"srifle_DMR_05_blk_F", false],
+		[true,1600,"srifle_LRR_F", false],
+		[true,0,"launch_RPG7_F", false],
+		[true,600,"launch_RPG32_F", false],
+		[true,0,"launch_B_Titan_F", false],
+		[true,900,"launch_B_Titan_short_F", false],
+		[false,700,"UAV Terminal", false],
+		[false,250,"APERS Mines", false],
+		[false,300,"Explosive Charges", false],
+		[false,1000,"Satchel Charges", false],
+		[false,200,"Red Dot Optics", false],
+		[false,600,"Hybrid Optics", false],
+		[false,700,"Sniper Optics", false],
+		[false,800,"Thermal Optics", false],
+		[false,350,"Bipods", false],
+		[false, 1000, "Armor", true]
 	];
 	unlockedGear = [];
 	unlockedAmmo = [];

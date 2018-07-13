@@ -24,6 +24,7 @@ if (_this select 0) then { //is Weapon
 		ammoBox addItemCargoGlobal ["optic_Aco_smg", _playerCount];
 		ammoBox addItemCargoGlobal ["optic_Holosight", _playerCount];
 		ammoBox addItemCargoGlobal ["optic_Holosight_smg", _playerCount];
+		ammoBox addItemCargoGlobal ["optic_MRD", _playerCount];
 	};
 	if (_name == "Hybrid Optics") then { //hybrid optics
 		ammoBox addItemCargoGlobal ["optic_MRCO", _playerCount];
@@ -49,5 +50,8 @@ if (_this select 0) then { //is Weapon
 	};
 	if (_name == "Satchel Charges") then { //satchel charges
 		specialBox addMagazineCargoGlobal ["SatchelCharge_Remote_Mag", 1];
+	};
+	if (_name == "Armor") then {
+		[] call LLB_fnc_buyArmor;
 	};
 };

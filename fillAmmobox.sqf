@@ -20,12 +20,11 @@ clearWeaponCargoGlobal ammoBox;
 //add ammo
 _ammo = [
 	["16Rnd_9x21_Mag", _playerCount * 5],
+	["11Rnd_45ACP_Mag", _playerCount * 5],
 	["30Rnd_45ACP_Mag_SMG_01", (_playerCount * _wave) min (_playerCount * 10)],
 	["30Rnd_65x39_caseless_mag", _playerCount * _wave, 5],
-	["9Rnd_45ACP_Mag", (ceil (_playerCount * _wave * 0.4)) min ( _playerCount * 5)],
 	["1Rnd_HE_Grenade_shell", floor (_playerCount * _wave * 0.5)],
 	["200Rnd_65x39_cased_Box", ceil (_wave * 0.2)],
-	["30Rnd_9x21_Mag", ceil (_playerCount * 2 + _wave * 0.15)],
 	["10Rnd_93x64_DMR_05_Mag", ceil (_wave * 0.7)],
 	["20Rnd_762x51_Mag", ceil (_playerCount * _wave * 0.4)],
 	["30Rnd_556x45_Stanag", ceil (_playerCount * _wave * 0.5)],
@@ -47,6 +46,7 @@ if ("Red Dot Optics" call _itemIsUnlocked) then { //red dot optics
 	ammoBox addItemCargoGlobal ["optic_Aco_smg", _playerCount];
 	ammoBox addItemCargoGlobal ["optic_Holosight", _playerCount];
 	ammoBox addItemCargoGlobal ["optic_Holosight_smg", _playerCount];
+	ammoBox addItemCargoGlobal ["optic_MRD", _playerCount];
 };
 if ("Hybrid Optics" call _itemIsUnlocked) then { //hybrid optics
 	ammoBox addItemCargoGlobal ["optic_MRCO", _playerCount];

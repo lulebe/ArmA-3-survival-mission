@@ -78,7 +78,7 @@ updateMoney = {
 titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
 [300] call updateMoney;
 [] spawn {
-	sleep 30;
+	sleep 10;
 	while {true} do {
 		if (isNull (uiNamespace getVariable "infodspl")) then {
 			titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
@@ -101,6 +101,13 @@ miscUnlockedInfo = {
 	_name spawn {
 		cutRsc ["WeaponUnlockInfoDisplayTitle", "PLAIN"];
 		uiNamespace getVariable "weaponunlockinfodspl" displayCtrl 201 ctrlSetStructuredText parseText ("<t align='center' color='#000000'>Unlocked a new Item:<br/>" + _this + "</t>");
+	};
+};
+multiActivatedInfo = {
+	_name = _this select 0;
+	_name spawn {
+		cutRsc ["WeaponUnlockInfoDisplayTitle", "PLAIN"];
+		uiNamespace getVariable "weaponunlockinfodspl" displayCtrl 201 ctrlSetStructuredText parseText ("<t align='center' color='#000000'>Activated:<br/>" + _this + "</t>");
 	};
 };
 
@@ -135,14 +142,20 @@ buyGear = {
 		money = money - (_gear select 1);
 		publicVariable "money";
 		[money] remoteExecCall ["updateMoney"];
-		unlockedGear = unlockedGear + [_gear];
-		publicVariable "unlockedGear";
-		false call addGearToShop;
+		if (!(_gear select 3)) then {
+			unlockedGear = unlockedGear + [_gear];
+			publicVariable "unlockedGear";
+			false call addGearToShop;
+		};
 		_gear execVM "addNewGearToBoxes.sqf";
 		if (_gear select 0) then {
 			[_gear select 2] remoteExecCall ["weaponUnlockedInfo"];
 		} else {
-			[_gear select 2] remoteExecCall ["miscUnlockedInfo"];
+			if (_gear select 3) then {
+				[_gear select 2] call multiActivatedInfo;
+			} else {
+				[_gear select 2] remoteExecCall ["miscUnlockedInfo"];
+			};
 		};
 	} else {
 		hint "Not enough money";
