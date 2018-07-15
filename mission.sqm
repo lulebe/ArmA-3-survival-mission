@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=340;
+		nextID=349;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={6643.2217,117.42076,8814.3701};
-		dir[]={-0.89211655,-0.41590106,-0.17723268};
-		up[]={-0.40812612,0.90928972,-0.08108145};
-		aside[]={-0.19487515,9.5501309e-007,0.98093092};
+		pos[]={6589.833,127.97692,8749.1328};
+		dir[]={-0.89646846,-0.29498467,0.33101594};
+		up[]={-0.27695784,0.95537943,0.10226266};
+		aside[]={0.34641224,3.2249227e-007,0.93818164};
 	};
 };
 binarizationWanted=0;
@@ -47,13 +47,16 @@ addons[]=
 	"A3_Structures_F_System",
 	"A3_Modules_F",
 	"A3_Supplies_F_Exp_Ammoboxes",
-	"A3_Weapons_F_Ammoboxes"
+	"A3_Weapons_F_Ammoboxes",
+	"A3_Structures_F_Civ_Constructions",
+	"A3_Structures_F_Ind_Crane",
+	"A3_Structures_F_EPA_Civ_Constructions"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=15;
+		items=16;
 		class Item0
 		{
 			className="A3_Characters_F";
@@ -156,6 +159,13 @@ class AddonsMetaData
 		{
 			className="A3_Supplies_F_Exp";
 			name="Arma 3 Apex - Ammoboxes and Supplies";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item15
+		{
+			className="A3_Structures_F_EPA";
+			name="Arma 3 Survive Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -298,8 +308,8 @@ class Mission
 		lightningsForced=1;
 		year=2035;
 		day=6;
-		hour=5;
-		minute=-22;
+		hour=4;
+		minute=24;
 		startFogBase=149.94995;
 		forecastFogBase=83.305664;
 		startFogDecay=0.04916694;
@@ -307,7 +317,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=126;
+		items=130;
 		class Item0
 		{
 			dataType="Group";
@@ -2148,7 +2158,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6558.3022,111.70369,8762.5664};
+				position[]={6558.3018,111.7037,8762.5664};
 				angles[]={0,6.0485959,0};
 			};
 			side="Empty";
@@ -2158,6 +2168,29 @@ class Mission
 			};
 			id=236;
 			type="Land_Unfinished_Building_01_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item98
 		{
@@ -2173,6 +2206,7 @@ class Mission
 			};
 			id=237;
 			type="Land_ClutterCutter_large_F";
+			atlOffset=0.22303772;
 		};
 		class Item99
 		{
@@ -3020,6 +3054,140 @@ class Mission
 			id=339;
 			type="Box_NATO_WpsSpecial_F";
 			atlOffset=-7.6293945e-006;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item126
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6562.8979,112.89233,8761.8896};
+				angles[]={-0,4.5009198,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=342;
+			type="Land_Bricks_V2_F";
+		};
+		class Item127
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6566.043,127.4129,8766.5596};
+				angles[]={0,2.9220827,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+			};
+			id=344;
+			type="Land_Crane_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item128
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6553.439,110.47906,8767.3428};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+			};
+			id=347;
+			type="Land_PortableLight_double_F";
+			atlOffset=7.6293945e-005;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item129
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={6552.9189,113.98428,8766.4111};
+				angles[]={0,2.5234668,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+			};
+			id=348;
+			type="Land_PortableLight_single_F";
+			atlOffset=0.00028991699;
 			class CustomAttributes
 			{
 				class Attribute0

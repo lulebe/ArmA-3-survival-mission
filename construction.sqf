@@ -7,7 +7,7 @@ _buildOptions = [
 	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, "", false, []],
 	["concrete shelter", "Land_CnCShelter_F", 180, [0,1,1], {}, {true}, "", false, []],
 	["ramp", "Land_Obstacle_Ramp_F", 200, [0,2,0.5], {}, {true}, "", true, [[0,-1,0],[0,0,1]]],
-	["concrete roof", "Land_ConcreteWall_01_m_4m_F", 450, [0,0,2.07], {
+	["concrete roof", "Land_ConcreteWall_01_m_4m_F", 450, [0,0,3], {
 		_walkway = "Land_Sidewalk_01_narrow_4m_F" createVehicle position _this;
 		_walkway attachTo [_this, [0,0,0]];
 		_walkway setVectorDirAndUp [[0,0,1], [0,-1,0]];
