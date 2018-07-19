@@ -2971,7 +2971,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={6622.4058,108.98,8792.7578};
-			angle=2.9373884;
+			angle=2.9373889;
 			class Attributes
 			{
 				name="targetarea";
@@ -2981,7 +2981,9 @@ class Mission
 				sizeB=70;
 				activationBy="WEST";
 				isRectangle=1;
+				effectSound="SmallExplosion";
 				effectMusic="LeadTrack06_F";
+				effectTitle="RscStatic";
 			};
 			id=335;
 			type="EmptyDetectorAreaR250";
