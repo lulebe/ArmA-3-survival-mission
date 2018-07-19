@@ -214,7 +214,9 @@ _spawnNextWave = {
 	[+allDead] spawn {
 		sleep 60;
 		{
-			deleteVehicle _x;
+			if (!(_x getVariable ["noDespawn", false])) then {
+				deleteVehicle _x;
+			};
 		} forEach (_this select 0);
 	};
 	nextWaveAt = time + waveDelay + (currentWave * addedWaveDelay);

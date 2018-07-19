@@ -98,6 +98,8 @@ _firstWaveWaitDisplayHandler = [] spawn {
 	};
 };
 
+[] execVM "mortars.sqf";
+
 if (!loadedFromSave) then {
 	[1] execVM "fillAmmobox.sqf";
 	waitUntil {(time - timeAtStart) >= 180 || startNextWaveNow};
@@ -108,4 +110,3 @@ if (!loadedFromSave) then {
 terminate _firstWaveWaitDisplayHandler;
 
 [] execVM "spawnWaves.sqf";
-

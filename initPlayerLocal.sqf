@@ -1,9 +1,3 @@
-player enableFatigue false;
-
-player addAction ["enter build mode", "construction.sqf", [], 1.5, false, false, "", "!waveRunning"];
-
-player addAction ["Gear Shop", {createDialog "GearShopDisplay";}, [], 0.1, false];
-
 displayUnitDamage = {
 	sleep 0.02;
 	_d = damage player;
@@ -16,20 +10,6 @@ displayUnitDamage = {
 		1
 	];
 	uiNamespace getVariable "infodspl" displayCtrl 106 progressSetPosition ((player getVariable ["armor", 0]) / 15.0);
-};
-
-[] spawn {
-	while {true} do {
-		if (damage player > 0) then {
-			_restoredHealth = (damage player - 0.02);
-			if (_restoredHealth < 0) then {
-				_restoredHealth = 0
-			};
-			player setDamage _restoredHealth;
-		};
-		[] spawn displayUnitDamage;
-		sleep 1;
-	}
 };
 
 showWaveStart = {
@@ -75,20 +55,6 @@ updateMoney = {
 	uiNamespace getVariable "infodspl" displayCtrl 103 ctrlSetStructuredText _text;
 };
 
-titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
-[300] call updateMoney;
-[] spawn {
-	sleep 10;
-	while {true} do {
-		if (isNull (uiNamespace getVariable "infodspl")) then {
-			titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
-			[currentWave, -1, vehicleWaves, helicopterWaves] call showWaveStart;
-			[money] call updateMoney;
-		};
-		sleep 0.1;
-	}
-};
-
 weaponUnlockedInfo = {
 	_classname = _this select 0;
 	_imgPath = getText (configFile >> "CfgWeapons" >> _classname >> "picture");
@@ -132,9 +98,6 @@ addGearToShop = {
 	
 };
 
-"unlockedGear" addPublicVariableEventHandler {
-	false call addGearToShop;
-};
 
 buyGear = {
 	_gear = (allGear - unlockedGear) select _this;
@@ -160,4 +123,58 @@ buyGear = {
 	} else {
 		hint "Not enough money";
 	}
+};
+
+player enableFatigue false;
+
+player addAction ["enter build mode", "construction.sqf", [], 1.5, false, false, "", "!waveRunning"];
+
+player addAction ["Gear Shop", {createDialog "GearShopDisplay";}, [], 0.1, false];
+
+[] spawn {
+	while {true} do {
+		if (damage player > 0) then {
+			_restoredHealth = (damage player - 0.02);
+			if (_restoredHealth < 0) then {
+				_restoredHealth = 0
+			};
+			player setDamage _restoredHealth;
+		};
+		[] spawn displayUnitDamage;
+		sleep 1;
+	}
+};
+
+"unlockedGear" addPublicVariableEventHandler {
+	false call addGearToShop;
+};
+
+titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
+[300] call updateMoney;
+[] spawn {
+	sleep 10;
+	while {true} do {
+		if (isNull (uiNamespace getVariable "infodspl")) then {
+			titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
+			[currentWave, -1, vehicleWaves, helicopterWaves] call showWaveStart;
+			[money] call updateMoney;
+		};
+		sleep 0.1;
+	}
+};
+
+[] execVM "missionStart.sqf";
+
+0 = ["ColorCorrections", 1500, [1, 1, 0, [0, 0, 0, 0], [1, 0.95, 0.95, 0.65], [0.35, 0.587, 0.2, 0]]] spawn 
+{
+	params ["_name", "_priority", "_effect", "_handle"];
+	while {
+		_handle = ppEffectCreate [_name, _priority];
+		_handle < 0
+	} do {
+		_priority = _priority + 1;
+	};
+	_handle ppEffectEnable true;
+	_handle ppEffectAdjust _effect;
+	_handle ppEffectCommit 30;
 };
