@@ -18,19 +18,17 @@ _soldier addEventHandler ["HandleDamage", {
 	} else {
 		_prevDamage = _unit getHit _selection;
 	};
-	_addedDamage = ((_damage - _prevDamage) / 30.0);
-	if (_addedDamage < 0.03) then { _addedDamage = 0.03; };
-	if (_addedDamage > 0.1) then { _addedDamage = 0.1; };
+	_addedDamage = ((_damage - _prevDamage) / 60.0);
+	if (_addedDamage < 0.01) then { _addedDamage = 0.01; };
+	if (_addedDamage > 0.03) then { _addedDamage = 0.03; };
 	_newDamage = _prevDamage + _addedDamage;
 	_newDamage;
 }];
 
-_soldier addEventHandler ["fired", {(_this select 0) setVehicleAmmo 1;}];
-
 _soldier spawn {
 	while {alive _this} do {
 		if (damage _this > 0) then {
-			_restoredHealth = (damage _this - 0.02);
+			_restoredHealth = (damage _this - 0.03);
 			if (_restoredHealth < 0) then {
 				_restoredHealth = 0
 			};
@@ -39,6 +37,8 @@ _soldier spawn {
 		sleep 1;
 	}
 };
+
+_soldier addEventHandler ["fired", {(_this select 0) setVehicleAmmo 1;}];
 
 _soldier addAction ["check health", {
 	_s = (_this select 0);

@@ -3,17 +3,17 @@ player removeAction _enterActionId;
 
 
 _buildOptions = [
-	["low sandbags", "Land_SandbagBarricade_01_half_F", 90, [0,1,0.55], {}, {true}, "", true, []],
-	["high sandbags", "Land_SandbagBarricade_01_F", 180, [0,1,1.3], {}, {true}, "", false, []],
-	["concrete shelter", "Land_CnCShelter_F", 180, [0,1,1], {}, {true}, "", false, []],
-	["ramp", "Land_Obstacle_Ramp_F", 200, [0,2,0.5], {}, {true}, "", true, [[0,-1,0],[0,0,1]]],
-	["concrete roof", "Land_ConcreteWall_01_m_4m_F", 450, [0,0,3], {
+	["low sandbags", "Land_SandbagBarricade_01_half_F",75, [0,1,0.55], {}, {true}, "", true, []],
+	["high sandbags", "Land_SandbagBarricade_01_F", 130, [0,1,1.3], {}, {true}, "", true, []],
+	["concrete shelter", "Land_CnCShelter_F", 130, [0,1,1], {}, {true}, "", true, []],
+	["ramp", "Land_Obstacle_Ramp_F", 150, [0,2,0.5], {}, {true}, "", true, [[0,-1,0],[0,0,1]]],
+	["concrete roof", "Land_ConcreteWall_01_m_4m_F", 400, [0,0,3], {
 		_walkway = "Land_Sidewalk_01_narrow_4m_F" createVehicle position _this;
 		_walkway attachTo [_this, [0,0,0]];
 		_walkway setVectorDirAndUp [[0,0,1], [0,-1,0]];
 		_walkway allowDamage false;
 	}, {true}, "", true, [[0,0,-1], [1,0,0]]],
-	["bunker", "Land_BagBunker_Small_F", 500, [0,3,0.93], {}, {true}, "", false, []],
+	["bunker", "Land_BagBunker_Small_F", 400, [0,3,0.93], {}, {true}, "", false, []],
 	["static MG (3 rounds)", "B_HMG_01_high_F", 400, [0,1,1.7], {
 		_this enableWeaponDisassembly false;
 		_this addEventHandler ["Fired", {(_this select 0) setVehicleAmmo 1;}];
@@ -47,11 +47,14 @@ _buildOptions = [
 		(_vData select 0) setVehicleAmmo 0.3;
 		publicVariable "staticAA";
 	}, {true}, "AA is already installed.", false, []],
-	["recruit soldier", "", 1000, [0,1,0], {
-		_s = (group player) createUnit ["B_Soldier_F", position player, [], 0, "NONE"];
+	["recruit soldier", "", 800, [0,1,0], {
+		_s = (group player) createUnit ["B_Soldier_AR_F", position player, [], 0, "NONE"];
 		_s execVM "recruitedSoldier.sqf";
 	}, {true}, "", false, []],
-	["repair building", "", 1000, [0,0,0], {
+	["request CAS Heli", "", 1500, [0,1,0], {
+		0 execVM "recruitedHelicopter.sqf";
+	}, {true}, "", false, []],
+	["repair building", "", 700, [0,0,0], {
 		_inclBuilding = nearestBuilding player;
 		_placedBuilding = nearestObjects [player, ["House", "Building"], 100] select 0;
 		_building = _inclBuilding;
@@ -60,9 +63,13 @@ _buildOptions = [
 		};
 		_building setDamage 0;
 	}, {true}, "", false, []],
-	["supply drop", "", 1000, [0,0,0], {
+	["supply drop", "", 500, [0,0,0], {
 		[] remoteExec ["supplyDrop", 2];
 		"supply drop incoming..." remoteExec ["hint"];
+	}, {true}, "", false, []],
+	["air strike", "", 600, [0,0,0], {
+		airStrikesAvailable = airStrikesAvailable + 1;
+		publicVariable "airStrikesAvailable";
 	}, {true}, "", false, []]
 ];
 buildActionIds = [];

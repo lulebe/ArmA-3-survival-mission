@@ -20,6 +20,10 @@ if (!loadedFromSave) then {
 	moreVehiclesStartWave = 16;
 	moreHeavyVehiclesInterval = 10;
 
+	airStrikesAvailable = 0;
+
+	manuallyHalted = false;
+
 	//shopping
 	allGear = [
 		//[isWeapon, price, classname/type, multipleTimes]
@@ -64,6 +68,8 @@ publicVariable "helicopterWaves";
 //shopping
 publicVariable "allGear";
 publicVariable "unlockedGear";
+
+publicVariable "airStrikesAvailable";
 
 
 clearItemCargoGlobal ammoBox;

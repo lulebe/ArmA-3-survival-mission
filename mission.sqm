@@ -8,18 +8,18 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=484;
+		nextID=487;
 	};
 	class MarkerIDProvider
 	{
-		nextID=7;
+		nextID=9;
 	};
 	class Camera
 	{
-		pos[]={6634.9233,284.80124,9117.5723};
-		dir[]={-0.13413061,-0.40013668,-0.90672374};
-		up[]={-0.058565155,0.91639501,-0.39588726};
-		aside[]={-0.98936963,3.1714153e-006,0.14635444};
+		pos[]={6617.4092,135.75595,8819.8682};
+		dir[]={-0.16734378,-0.47384617,-0.86470413};
+		up[]={-0.090041853,0.88054883,-0.4652572};
+		aside[]={-0.9819144,3.0843657e-006,0.19002658};
 	};
 };
 binarizationWanted=0;
@@ -28,6 +28,7 @@ addons[]=
 	"A3_Characters_F",
 	"A3_Weapons_F_Pistols_P07",
 	"A3_Weapons_F",
+	"A3_Weapons_F_Items",
 	"A3_Ui_F",
 	"A3_Misc_F_Helpers",
 	"A3_Structures_F_Heli_VR_Helpers",
@@ -416,7 +417,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=193;
+		items=196;
 		class Item0
 		{
 			dataType="Group";
@@ -472,6 +473,15 @@ class Mission
 							{
 								typeName="V_PlateCarrier2_rgr";
 								isBackpack=0;
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=3;
+									};
+								};
 							};
 							class backpack
 							{
@@ -2628,6 +2638,15 @@ class Mission
 							{
 								typeName="V_PlateCarrier2_rgr";
 								isBackpack=0;
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=3;
+									};
+								};
 							};
 							class backpack
 							{
@@ -2750,6 +2769,15 @@ class Mission
 							{
 								typeName="V_PlateCarrier2_rgr";
 								isBackpack=0;
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=3;
+									};
+								};
 							};
 							class backpack
 							{
@@ -2870,6 +2898,15 @@ class Mission
 							{
 								typeName="V_PlateCarrier2_rgr";
 								isBackpack=0;
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=3;
+									};
+								};
 							};
 							class backpack
 							{
@@ -2971,7 +3008,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={6622.4058,108.98,8792.7578};
-			angle=2.9373889;
+			angle=2.9373884;
 			class Attributes
 			{
 				name="targetarea";
@@ -5240,6 +5277,25 @@ class Mission
 			{
 				class Attribute0
 				{
+					property="ModuleTracers_F_Weapon";
+					expression="_this setVariable ['Weapon',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute1
+				{
 					property="ModuleTracers_F_Max";
 					expression="_this setVariable ['Max',_value,true];";
 					class Value
@@ -5257,7 +5313,45 @@ class Mission
 						};
 					};
 				};
-				class Attribute1
+				class Attribute2
+				{
+					property="ModuleTracers_F_Target";
+					expression="_this setVariable ['Target',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleTracers_F_Magazine";
+					expression="_this setVariable ['Magazine',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute4
 				{
 					property="ModuleTracers_F_Side";
 					expression="_this setVariable ['Side',_value,true];";
@@ -5276,7 +5370,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
 					property="ModuleTracers_F_Min";
 					expression="_this setVariable ['Min',_value,true];";
@@ -5295,7 +5389,7 @@ class Mission
 						};
 					};
 				};
-				nAttributes=3;
+				nAttributes=6;
 			};
 		};
 		class Item173
@@ -5346,6 +5440,25 @@ class Mission
 			{
 				class Attribute0
 				{
+					property="ModuleTracers_F_Weapon";
+					expression="_this setVariable ['Weapon',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute1
+				{
 					property="ModuleTracers_F_Max";
 					expression="_this setVariable ['Max',_value,true];";
 					class Value
@@ -5363,7 +5476,45 @@ class Mission
 						};
 					};
 				};
-				class Attribute1
+				class Attribute2
+				{
+					property="ModuleTracers_F_Target";
+					expression="_this setVariable ['Target',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleTracers_F_Magazine";
+					expression="_this setVariable ['Magazine',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute4
 				{
 					property="ModuleTracers_F_Side";
 					expression="_this setVariable ['Side',_value,true];";
@@ -5382,7 +5533,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
 					property="ModuleTracers_F_Min";
 					expression="_this setVariable ['Min',_value,true];";
@@ -5401,7 +5552,7 @@ class Mission
 						};
 					};
 				};
-				nAttributes=3;
+				nAttributes=6;
 			};
 		};
 		class Item175
@@ -5418,6 +5569,25 @@ class Mission
 			{
 				class Attribute0
 				{
+					property="ModuleTracers_F_Weapon";
+					expression="_this setVariable ['Weapon',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute1
+				{
 					property="ModuleTracers_F_Max";
 					expression="_this setVariable ['Max',_value,true];";
 					class Value
@@ -5435,7 +5605,45 @@ class Mission
 						};
 					};
 				};
-				class Attribute1
+				class Attribute2
+				{
+					property="ModuleTracers_F_Target";
+					expression="_this setVariable ['Target',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleTracers_F_Magazine";
+					expression="_this setVariable ['Magazine',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute4
 				{
 					property="ModuleTracers_F_Side";
 					expression="_this setVariable ['Side',_value,true];";
@@ -5454,7 +5662,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
 					property="ModuleTracers_F_Min";
 					expression="_this setVariable ['Min',_value,true];";
@@ -5473,7 +5681,7 @@ class Mission
 						};
 					};
 				};
-				nAttributes=3;
+				nAttributes=6;
 			};
 		};
 		class Item176
@@ -5949,6 +6157,7 @@ class Mission
 			name="ordnance_3";
 			type="Empty";
 			id=480;
+			atlOffset=7.6293945e-006;
 		};
 		class Item190
 		{
@@ -5965,6 +6174,7 @@ class Mission
 			name="ordnance_5";
 			type="Empty";
 			id=482;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item192
 		{
@@ -5974,6 +6184,32 @@ class Mission
 			type="Empty";
 			id=483;
 			atlOffset=0.34384155;
+		};
+		class Item193
+		{
+			dataType="Marker";
+			position[]={7688.1567,73.336304,9487.2666};
+			name="marker_airstrikeplane_start";
+			type="Empty";
+			id=484;
+		};
+		class Item194
+		{
+			dataType="Marker";
+			position[]={4541.415,366.686,7763.4531};
+			name="marker_airstrikeplane_end";
+			type="Empty";
+			id=485;
+			atlOffset=-6.1035156e-005;
+		};
+		class Item195
+		{
+			dataType="Marker";
+			position[]={7231.5498,139.07001,9498.6553};
+			name="marker_spawn_CAS";
+			type="Empty";
+			id=486;
+			atlOffset=-0.00012207031;
 		};
 	};
 	class Connections

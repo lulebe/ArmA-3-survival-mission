@@ -1,5 +1,5 @@
 _helicopterHeight = 30;
-_waveUnitRewardFactor = 15;
+_waveUnitRewardFactor = 20;
 
 _normalUnits = [
 	["O_Soldier_F", 30],
@@ -202,7 +202,7 @@ _spawnNextWave = {
 	publicVariable "waveRunning";
 	waveEndTime = time;
 	if (!noWaveReward) then {
-		_waveReward = _waveRewardMax - round (waveEndTime - _waveStartTime) + 10;
+		_waveReward = _waveRewardMax - round (waveEndTime - _waveStartTime) + 30;
 		if (_waveReward < 0) then {
 			_waveReward = 0
 		};
@@ -231,6 +231,7 @@ _spawnNextWave = {
 };
 
 while {true} do {
+	waitUntil { !manuallyHalted };
 	[] call _spawnNextWave;
 	currentWave = currentWave + 1;
 	publicVariable "currentWave";

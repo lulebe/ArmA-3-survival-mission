@@ -1,3 +1,6 @@
+player addAction ["<t color='#FF0000'>request AIR STRIKE</t>", "airstrike.sqf", [], 2, false, true, "", "airStrikesAvailable > 0"];
+AirStrikeMapClickHandlerId = objNull;
+
 displayUnitDamage = {
 	sleep 0.02;
 	_d = damage player;
@@ -177,4 +180,9 @@ titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
 	_handle ppEffectEnable true;
 	_handle ppEffectAdjust _effect;
 	_handle ppEffectCommit 30;
+};
+
+reloadUI = {
+	titleRsc ["WaveInfoDisplayTitle", "PLAIN"];
+	[money] call updateMoney;
 };
