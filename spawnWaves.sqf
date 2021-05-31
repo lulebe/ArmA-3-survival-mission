@@ -46,6 +46,9 @@ _setupGroup = {
 	_wp = _group addWaypoint [markerPos "target", 0];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointSpeed "FULL";
+	_wp2 = _group addWaypoint [markerPos "target", 5];
+	_wp2 setWaypointType "SAD";
+	_wp2 setWaypointSpeed "FULL";
 };
 
 onKill = {
@@ -79,19 +82,7 @@ _spawnUnitsAsGroup = {
 			}];
 		};
 	};
-	[_group] spawn {
-		_g = _this select 0;
-		while {alive leader _g} do {
-			if (!(leader _g inArea targetArea)) then {
-				leader _g move markerPos "target";
-			};
-			sleep 2;
-		};
-	};
 	[_group] call _setupGroup;
-	_wp2 = _group addWaypoint [markerPos "target", 5];
-	_wp2 setWaypointType "SAD";
-	_wp2 setWaypointSpeed "FULL";
 };
 
 _spawnVehicleWithCrew = {
@@ -194,6 +185,7 @@ _spawnNextWave = {
 	[currentWave, livingUnits, vehicleWaves, helicopterWaves] remoteExecCall ["showWaveStart"];
 	_waveRewardMax = livingUnits * _waveUnitRewardFactor;
 	_waveStartTime = time;
+	unitsOfCurrentWave execVM "searchPlayers.sqf";
 	waitUntil { livingUnits <= (_totalUnits / 3) };
 	//show units on map
 	unitsOfCurrentWave execVM "revealUnitsOnMap.sqf";
